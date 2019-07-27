@@ -59,7 +59,7 @@ export async function getMessagesByWeekday(chatId) {
                 return {
                     weekday: {
                         numeric: x._id.weekday - 1,
-                        readable: ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"][x._id.weekday - 1]
+                        readable: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'][x._id.weekday - 1]
                     },
                     count: x.count
                 }
@@ -69,6 +69,52 @@ export async function getMessagesByWeekday(chatId) {
         } catch (error) {
             reject({
                 message: 'Could not read messages per weekday from database',
+                error: error
+            })
+        }
+    })
+}
+
+export async function getMessagesByHour(chatId) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let messagesByHour = (await Message.aggregate([{
+                '$match': {
+                    'chat': chatId
+                }
+            }, {
+                '$group': {
+                    '_id': {
+                        hour: {
+                            '$hour': {
+                                'date': {
+                                    '$toDate': {
+                                        '$multiply': [1000, '$date']
+                                    }
+                                },
+                                'timezone': Intl.DateTimeFormat().resolvedOptions().timeZone
+                            }
+                        }
+                    },
+                    'count': {
+                        '$sum': 1
+                    }
+                }
+            }, {
+                '$sort': {
+                    '_id.hour': 1
+                }
+            }])).map(x => {
+                return {
+                    hour: x._id.hour,
+                    count: x.count
+                }
+            })
+
+            resolve(messagesByHour)
+        } catch (error) {
+            reject({
+                message: 'Could not read messages per hour from database',
                 error: error
             })
         }
