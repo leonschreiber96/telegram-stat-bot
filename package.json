@@ -1,0 +1,23 @@
+{
+  "name": "telegram-stat-backend",
+  "version": "0.0.1",
+  "description": "Backend server that accepts and processes requests from telegram-stat-bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/.bin/babel-node index.js",
+    "teletest": "node_modules/.bin/babel-node app.js",
+    "start": "node_modules/.bin/nodemon index.js --exec babel-node --"
+  },
+  "author": "Leon Schreiber",
+  "license": "ISC",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.6.6",
+    "node-telegram-bot-api": "^0.30.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
