@@ -1,6 +1,6 @@
 {
   "name": "telegram-stat-backend",
-  "version": "0.0.1.1",
+  "version": "0.0.1",
   "description": "Backend server that accepts and processes requests from telegram-stat-bot",
   "main": "index.js",
   "scripts": {
