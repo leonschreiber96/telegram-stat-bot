@@ -1,7 +1,4 @@
 import Message from '../models/schemas/message.schema'
-import {
-    removeAllListeners
-} from 'cluster';
 
 export async function getMessageTotal(chatId) {
     return new Promise((resolve, reject) => {
@@ -14,7 +11,7 @@ export async function getMessageTotal(chatId) {
     })
 }
 
-export async function getMessagesPerUser(chatId) {
+export async function getMessagesByUser(chatId) {
     return new Promise((resolve, reject) => {
         Message.aggregate([{
             $match: {

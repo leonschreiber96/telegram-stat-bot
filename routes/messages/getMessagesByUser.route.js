@@ -1,15 +1,15 @@
 import {
-    getMessagesPerUser
+    getMessagesByUser
 } from '../../controllers/message.controller'
 
-export default function getMessagesPerUserRoute(req, res) {
+export default function getMessagesByUserRoute(req, res) {
     let chatId = parseInt(req.params.chatId)
 
     if (isNaN(chatId)) {
         res.status(400).send('chatId parameter must be an integer')
     }
 
-    getMessagesPerUser(chatId)
+    getMessagesByUser(chatId)
         .then((result) => {
             let totalMessages = result.map(x => x.count).reduce((sum, value) => sum + value)
 
