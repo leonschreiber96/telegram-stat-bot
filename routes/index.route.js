@@ -5,6 +5,7 @@ import getMessagesByUserRoute from './messages/getMessagesByUser.route'
 import getWordCountRoute from './messages/getAverageWordsRoute'
 import getMessagesByWeekdayRoute from './messages/getMessagesByWeekday.route'
 import getMessagesByHourRoute from './messages/getMessagesByHour.route'
+import postMessageRoute from './messages/postMessage.route'
 
 import getMembershipEventsRoute from './meta/getMembershipEventsRoute'
 
@@ -15,7 +16,7 @@ router.get('/messages/byUser/:chatId', getMessagesByUserRoute)
 router.get('/messages/wordCount/:chatId', getWordCountRoute)
 router.get('/messages/byWeekday/:chatId', getMessagesByWeekdayRoute)
 router.get('/messages/byHour/:chatId', getMessagesByHourRoute)
-
+router.post('/messages', postMessageRoute)
 
 router.get('/meta/membership/:chatId', getMembershipEventsRoute)
 
