@@ -3,15 +3,17 @@ import {
 } from '../../controllers/message.controller'
 
 export default function postMessageRoute(req, res) {
-    let messageData = []
+    let contentData = []
     req.on('data', chunk => {
-        messageData.push(chunk)
+        contentData.push(chunk)
     });
 
     req.on('end', () => {
-        let message = JSON.parse(messageData)
+        let content = JSON.parse(contentData)
+        let message = content.message
+        let metadata = content.metadata
 
-        postMessage(message)
+        postMessage(message, metadata)
             .catch((error) => {
                 console.error(error)
                 res.status(500).send(error)

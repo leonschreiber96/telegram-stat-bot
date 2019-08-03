@@ -33,6 +33,7 @@ let Message = new Schema({
         type: Number,
         required: true
     },
+    message_type: String,
     from: Number,
     forward_from: Number,
     forward_from_chat: Number,

@@ -1,7 +1,9 @@
 let MessageEntity = {
-    type:  String,
-    offset:  Number,
-    length:  Number,
+    type: {
+        type: String
+    },
+    offset: Number,
+    length: Number,
     url: String,
     user: Number
 };

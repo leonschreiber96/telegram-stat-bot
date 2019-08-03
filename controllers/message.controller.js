@@ -1,30 +1,67 @@
 import Message from '../models/schemas/message.schema'
+import Chat from '../models/schemas/chat.schema'
+import User from '../models/schemas/user.schema'
 
-export async function getMessageTotal(chatId) {
-    return new Promise((resolve, reject) => {
-        Message.find({
-            'chat': chatId
-        }).countDocuments((err, result) => {
-            if (err) reject(err)
-            else resolve(result)
+export async function getMessageTotal(chatId, extended) {
+    if (extended) {
+        return new Promise((resolve, reject) => {
+            Message.aggregate([{
+                        $match: {
+                            'chat': chatId
+                        }
+                    },
+                    {
+                        $group: {
+                            _id: '$message_type',
+                            count: {
+                                $sum: 1
+                            }
+                        }
+                    },
+                    {
+                        $sort: {
+                            'count': -1
+                        }
+                    },
+                    {
+                        $project: {
+                            '_id': 0,
+                            'type': '$_id',
+                            'count': 1
+                        }
+                    }
+                ])
+                .then(result => resolve(result))
+                .catch(err => reject(err))
         })
-    })
+    } else {
+        return new Promise((resolve, reject) => {
+            Message.find({
+                'chat': chatId
+            }).countDocuments((err, result) => {
+                if (err) reject(err)
+                else resolve(result)
+            })
+        })
+    }
 }
 
 export async function getMessagesByUser(chatId) {
     return new Promise((resolve, reject) => {
         Message.aggregate([{
-            $match: {
-                'chat': chatId
-            }
-        }, {
-            $group: {
-                _id: '$from',
-                count: {
-                    $sum: 1
+                $match: {
+                    'chat': chatId
+                }
+            },
+            {
+                $group: {
+                    _id: '$from',
+                    count: {
+                        $sum: 1
+                    }
                 }
             }
-        }], (err, result) => {
+        ], (err, result) => {
             if (err) reject(err)
             else resolve(result)
         })
@@ -35,27 +72,29 @@ export async function getMessagesByWeekday(chatId) {
     return new Promise(async (resolve, reject) => {
         try {
             let messagesByWeekday = (await Message.aggregate([{
-                '$match': {
-                    chat: chatId
-                }
-            }, {
-                '$group': {
-                    '_id': {
-                        'weekday': {
-                            '$dayOfWeek': {
-                                'date': {
-                                    '$toDate': {
-                                        '$multiply': [1000, '$date']
+                    '$match': {
+                        chat: chatId
+                    }
+                },
+                {
+                    '$group': {
+                        '_id': {
+                            'weekday': {
+                                '$dayOfWeek': {
+                                    'date': {
+                                        '$toDate': {
+                                            '$multiply': [1000, '$date']
+                                        }
                                     }
                                 }
                             }
+                        },
+                        'count': {
+                            '$sum': 1
                         }
-                    },
-                    'count': {
-                        '$sum': 1
                     }
                 }
-            }])).map(x => {
+            ])).map(x => {
                 return {
                     weekday: {
                         numeric: x._id.weekday - 1,
@@ -138,21 +177,22 @@ export async function getWordCount(chatId) {
     })
 }
 
-export async function postMessage(message) {
+export async function postMessage(message, metadata) {
     try {
         insertMissingDocuments(message);
     } catch (e) {
         console.log(e);
     }
 
-    console.log(message)
+    message.message_type = metadata.type === 'document' ? (message.animation ? 'gif' : 'document') : metadata.type
 
     let preparedMessage = prepareMessageForDb(message);
+    console.log("prepared message")
+    console.log(preparedMessage)
 
     let messageSchema = new Message(preparedMessage);
-
     messageSchema.save(function (err) {
-        if (err) return console.error(err);
+        if (err) return console.error(err)
     })
 }
 
@@ -198,7 +238,7 @@ function prepareMessageForDb(message) {
 }
 
 function insertMissingDocuments(message) {
-    upsertChat(message.chat);
+    if (message.chat) upsertChat(message.chat);
     if (message.forward_from_chat) upsertChat(message.forward_from_chat);
 
     if (message.from) upsertUser(message.from);
@@ -209,8 +249,6 @@ function insertMissingDocuments(message) {
 }
 
 function upsertUser(user) {
-    let userSchema = new User(user);
-
     let query = {
         'id': user.id
     };
@@ -224,8 +262,6 @@ function upsertUser(user) {
 }
 
 function upsertChat(chat) {
-    let chatSchema = new Chat(chat);
-
     let query = {
         'id': chat.id
     };
@@ -239,13 +275,13 @@ function upsertChat(chat) {
 }
 
 function upsertMessage(message) {
-    let messageSchema = new Message(message)
+    let preparedMessage = prepareMessageForDb(message)
 
     let query = {
         'message_id': message.message_id
     }
 
-    Message.findOneAndUpdate(query, message, {
+    Message.findOneAndUpdate(query, preparedMessage, {
         upsert: true,
         useFindAndModify: false
     }, function (err, doc) {

@@ -15,7 +15,8 @@
     "babel-preset-env": "^1.7.0",
     "express": "^4.17.1",
     "mongoose": "^5.6.6",
-    "node-telegram-bot-api": "^0.30.0"
+    "node-telegram-bot-api": "^0.30.0",
+    "request-promise": "^4.2.4"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
