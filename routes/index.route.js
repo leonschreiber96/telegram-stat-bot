@@ -9,6 +9,8 @@ import postMessageRoute from './messages/postMessage.route'
 
 import getMembershipEventsRoute from './meta/getMembershipEventsRoute'
 
+import getUserRoute from './users/getUser.route'
+
 const router = express.Router()
 
 router.get('/messages/total/:chatId', getMessageTotalRoute)
@@ -19,5 +21,7 @@ router.get('/messages/byHour/:chatId', getMessagesByHourRoute)
 router.post('/messages', postMessageRoute)
 
 router.get('/meta/membership/:chatId', getMembershipEventsRoute)
+
+router.get('/user/:id', getUserRoute)
 
 module.exports = router

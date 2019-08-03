@@ -4,12 +4,13 @@ import {
 
 export default function getMessagesByUserRoute(req, res) {
     let chatId = parseInt(req.params.chatId)
+    let extended = req.query.extended === 'true'
 
     if (isNaN(chatId)) {
         res.status(400).send('chatId parameter must be an integer')
     }
 
-    getMessagesByUser(chatId)
+    getMessagesByUser(chatId, extended)
         .then((result) => {
             let totalMessages = result.map(x => x.count).reduce((sum, value) => sum + value)
 
