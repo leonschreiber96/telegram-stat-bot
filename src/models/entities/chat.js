@@ -1,5 +1,5 @@
 import ChatPhoto from "./chatPhoto";
-
+// TODO: Fill data collection times on group enter or exit events
 let Chat = {
     id: {
         type: Number,
@@ -19,7 +19,13 @@ let Chat = {
     invite_link: String,
     pinned_message: Number,
     sticker_set_name: String,
-    can_set_sticker_set: Boolean
+    can_set_sticker_set: Boolean,
+    data_collection_times: [
+        {
+            entry: Number,
+            exit: Number
+        }
+    ]
 };
 
 export default Chat;

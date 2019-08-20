@@ -16,5 +16,4 @@ export default function on_message(message, metadata) {
     } catch (e) {
         console.log(e);
     }
-
 }

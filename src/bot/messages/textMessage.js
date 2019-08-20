@@ -1,11 +1,11 @@
 import { getBotReplyTranslation } from "../translate";
 
 export default class TextMessage {
-    constructor(parse_mode, bot, chat, language) {
-        this.parse_mode = parse_mode;
+    constructor(bot, chat, language, parse_mode) {
         this.bot = bot;
         this.chat = chat;
         this.language = language;
+        this.parse_mode = parse_mode;
         this.lines = [];
     }
 
@@ -24,9 +24,12 @@ export default class TextMessage {
 
     send() {
         let text = this.lines.join("\n");
-        this.bot.sendMessage(this.chat, text, {
-            parse_mode: this.parse_mode,
+        let options = {
             disable_notification: true
-        });
+        };
+
+        if (this.parse_mode) options.parse_mode = this.parse_mode;
+
+        this.bot.sendMessage(this.chat, text, options);
     }
 }

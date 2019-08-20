@@ -12,7 +12,7 @@ export default function total_messages(message, stat_bot) {
     }).then((response) => {
         let total_messages = response.result;
 
-        let reply = new TextMessage("Markdown", stat_bot.bot, chat, "de");
+        let reply = new TextMessage(stat_bot.bot, chat, "de", "Markdown");
 
         reply.add_line_translated("total_messages", { total_messages: total_messages });
 

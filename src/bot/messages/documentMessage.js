@@ -7,14 +7,14 @@ export default class DocumentMessage {
         this.document = document;
     }
 
-    set_caption(parse_mode, caption) {
-        this.parse_mode = parse_mode;
+    set_caption(caption, parse_mode) {
         this.caption = caption;
+        this.parse_mode = parse_mode;
     }
 
-    set_caption_translated(parse_mode, key, language, params) {
-        this.parse_mode = parse_mode;
+    set_caption_translated(key, language, params, parse_mode) {
         this.caption = getBotReplyTranslation(key, language, params);
+        this.parse_mode = parse_mode;
     }
 
     send() {

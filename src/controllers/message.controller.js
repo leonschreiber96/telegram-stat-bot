@@ -1,4 +1,6 @@
 import Message from "../models/schemas/message.schema";
+import User from "../models/schemas/statBotUser.schema";
+import Chat from "../models/schemas/chat.schema";
 
 export async function getMessageTotal(chatId, extended) {
     if (extended) {
@@ -158,7 +160,9 @@ export async function getWordCount(chatId) {
 export async function postMessage(message, metadata) {
     message.message_type = metadata.type === "document" ? (message.animation ? "gif" : "document") : metadata.type;
     
+    upsertMissingDocuments(message);
     let preparedMessage = prepareMessageForDb(message);
+
     console.log("prepared message");
     console.log(preparedMessage);
 
@@ -200,4 +204,38 @@ function prepareMessageForDb(message) {
     if (message.game && message.game.photo && message.game.photo.length === 0) delete preparedMessage.game.photo;
 
     return preparedMessage;
+}
+
+function upsertMissingDocuments(message) {
+    if (message.chat) upsertChat(message.chat);
+    if (message.forward_from_chat) upsertChat(message.forward_from_chat);
+
+    if (message.from) upsertUser(message.from);
+    if (message.new_chat_members) message.new_chat_members.forEach(x => upsertUser(x));
+}
+
+function upsertUser(user) {
+    let query = {
+        "id": user.id
+    };
+
+    User.findOneAndUpdate(query, user, {
+        upsert: true,
+        useFindAndModify: false
+    }, function (err) {
+        if (err) return console.error(err);
+    });
+}
+
+function upsertChat(chat) {
+    let query = {
+        "id": chat.id
+    };
+
+    Chat.findOneAndUpdate(query, chat, {
+        upsert: true,
+        useFindAndModify: false
+    }, function (err) {
+        if (err) return console.error(err);
+    });
 }

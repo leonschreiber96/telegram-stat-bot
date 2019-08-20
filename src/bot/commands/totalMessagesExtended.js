@@ -15,7 +15,7 @@ export default function total_messages_extended(message, stat_bot) {
         let total_messages = total_messages_grouped.reduce((a, b) => a + (b.count || 0), 0);
         let max_digits = Math.max(...total_messages_grouped.map(x => x.count.toString().length));
 
-        let reply = new TextMessage("Markdown", stat_bot.bot, chat, "de");
+        let reply = new TextMessage(stat_bot.bot, chat, "de", "Markdown");
         reply.add_line_translated("total_messages_extended", { total_messages: total_messages });
 
         total_messages_grouped.forEach((x) => {

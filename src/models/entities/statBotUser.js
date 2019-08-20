@@ -10,7 +10,10 @@ let StatBotUser = {
     last_name: String,
     username: String,
     language_code: String,
-    data_collection_consent: Boolean
+    data_collection_consent: {
+        type: String,
+        default: "denied"
+    }
 };
 
 export default StatBotUser;
