@@ -2,9 +2,9 @@
 import request from "request-promise";
 
 // Import internal packages
-import bot_response from "../botResponse";
+import TextMessage from "../messages/textMessage";
 
-export default function total_messages(message, bot) {
+export default function total_messages(message, stat_bot) {
     let chat = message.chat.id;
     request({
         uri: `http://localhost:5000/messages/total/${chat}`,
@@ -12,11 +12,9 @@ export default function total_messages(message, bot) {
     }).then((response) => {
         let total_messages = response.result;
 
-        let reply = new bot_response("Markdown", bot, chat, "de");
+        let reply = new TextMessage("Markdown", stat_bot.bot, chat, "de");
 
-        reply.use_translation("total_messages", {
-            total_messages: total_messages
-        });
+        reply.add_line_translated("total_messages", { total_messages: total_messages });
 
         reply.send();
 

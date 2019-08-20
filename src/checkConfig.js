@@ -10,31 +10,33 @@ let config = {};
 
 if (!config_available) {
     inquirer.prompt([{
-        type: "input",
+        type: "confirm",
         name: "manual_config",
-        message: "Seems like you haven't created a config file for the stat bot yet. We can do that together if you like. [y|n] ",
-        default: "y"
+        message: "Seems like you haven't created a config file for the stat bot yet. We can do that together if you like!",
+        default: true
     }, {
-        type: "input",
+        type: "password",
         name: "telegram_bot_token",
-        message: "What is your telegram bot api token? "
+        message: "What is your telegram bot api token? ",
+        mask: "*"
     }, {
-        type: "input",
-        name: "own_id",
-        message: "What is the unique chat id of your bot? "
+        type: "list",
+        name: "language_default",
+        message: "What language should your bot speak by default? ",
+        choices: ["en", "de"]
     }]).then(answers => {
-        let manual_config = answers["manual_config"].toLowerCase() === "y" || answers["manual_config"].toLowerCase() === "yes";
-
-        if (manual_config) {
+        if (answers["manual_config"]) {
             config.telegram_bot_token = answers["telegram_bot_token"];
-            config.own_id = answers["own_id"];
+            config.own_id = +config.telegram_bot_token.substring(0, config.telegram_bot_token.indexOf(":"));
+            config.language_default = answers["language_default"];
         } else {
             config.telegram_bot_token = "";
             config.own_id = "";
+            config.language_default = "";
             console.log("OK, got it. Creating an empty configuration file for you to edit.");
         }
 
-        fs.appendFile("./config.json", JSON.stringify(config), () => {
+        fs.appendFile("./config.json", JSON.stringify(config, null, 4), () => {
             console.log(colors.green("Configuration file successfully created!"));
         });
     });

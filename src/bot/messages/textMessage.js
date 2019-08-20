@@ -1,6 +1,6 @@
-import { getBotReplyTranslation } from "./translate";
+import { getBotReplyTranslation } from "../translate";
 
-export default class bot_response {
+export default class TextMessage {
     constructor(parse_mode, bot, chat, language) {
         this.parse_mode = parse_mode;
         this.bot = bot;
@@ -18,7 +18,7 @@ export default class bot_response {
         this.lines.push(text);
     }
 
-    use_translation(key, params) {
+    add_line_translated(key, params) {
         this.lines.push(getBotReplyTranslation(key, this.language, params));
     }
 

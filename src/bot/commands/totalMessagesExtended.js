@@ -2,10 +2,10 @@
 import request from "request-promise";
 
 // Import internal packages
-import bot_response from "../botResponse";
+import TextMessage from "../messages/textMessage";
 import { getMessageTypeTranslation } from "../translate";
 
-export default function total_messages_extended(message, bot) {
+export default function total_messages_extended(message, stat_bot) {
     let chat = message.chat.id;
     request({
         uri: `http://localhost:5000/messages/total/${chat}?extended=true`,
@@ -15,10 +15,8 @@ export default function total_messages_extended(message, bot) {
         let total_messages = total_messages_grouped.reduce((a, b) => a + (b.count || 0), 0);
         let max_digits = Math.max(...total_messages_grouped.map(x => x.count.toString().length));
 
-        let reply = new bot_response("Markdown", bot, chat, "de");
-        reply.use_translation("total_messages_extended", {
-            total_messages: total_messages
-        });
+        let reply = new TextMessage("Markdown", stat_bot.bot, chat, "de");
+        reply.add_line_translated("total_messages_extended", { total_messages: total_messages });
 
         total_messages_grouped.forEach((x) => {
             reply.add_line(`\`${(" ".repeat(max_digits) + x.count).slice(-max_digits)} \`` +

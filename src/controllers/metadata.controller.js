@@ -1,4 +1,4 @@
-import config from "../config";
+import config from "../../config.json";
 
 import Message from "../models/schemas/message.schema";
 
