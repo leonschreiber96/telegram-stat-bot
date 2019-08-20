@@ -1,0 +1,177 @@
+{
+    "bot_replies": {
+        "total_messages": {
+            "de": [
+                "Seit ich hier bin wurden insgesamt `p[total_messages]` Nachrichten geschrieben"
+            ]
+        },
+        "total_messages_extended": {
+            "de": [
+                "Seit ich hier bin wurden insgesamt `p[total_messages]` Nachrichten geschrieben. Darunter waren"
+            ]
+        },
+        "messages_per_user": {
+            "de": [
+                "Wer schreibt in der Gruppe wie viel?"
+            ]
+        }
+    },
+    "message_types": {
+        "text": {
+            "de": {
+                "single": "Textnachricht",
+                "many": "Textnachrichten"
+            }
+        },
+        "audio": {
+            "de": {
+                "single": "Audio",
+                "many": "Audios"
+            }
+        },
+        "document": {
+            "de": {
+                "single": "Dokument",
+                "many": "Dokumente"
+            }
+        },
+        "photo": {
+            "de": {
+                "single": "Foto",
+                "many": "Fotos"
+            }
+        },
+        "sticker": {
+            "de": {
+                "single": "Sticker",
+                "many": "Sticker"
+            }
+        },
+        "video": {
+            "de": {
+                "single": "Video",
+                "many": "Videos"
+            }
+        },
+        "voice": {
+            "de": {
+                "single": "Sprachnachricht",
+                "many": "Sprachnachrichten"
+            }
+        },
+        "contact": {
+            "de": {
+                "single": "Kontakt",
+                "many": "Kontakte"
+            }
+        },
+        "location": {
+            "de": {
+                "single": "Standort",
+                "many": "Standorte"
+            }
+        },
+        "new_chat_members": {
+            "de": {
+                "single": "Neues Chatmitglied",
+                "many": "Neue Chatmitglieder"
+            }
+        },
+        "left_chat_member": {
+            "de": {
+                "single": "Entferntes/gegangenes Mitglied",
+                "many": "Entfernte/gegangene Mitglieder"
+            }
+        },
+        "new_chat_title": {
+            "de": {
+                "single": "Neuer Chatname",
+                "many": "Neue Chatnamen"
+            }
+        },
+        "new_chat_photo": {
+            "de": {
+                "single": "Neues Chatbild",
+                "many": "Neue Chatbilder"
+            }
+        },
+        "delete_chat_photo": {
+            "de": {
+                "single": "Gelöschtes Chatbild",
+                "many": "Gelöschte Chatbilder"
+            }
+        },
+        "group_chat_created": {
+            "de": {
+                "single": "Gruppenchat erstellt",
+                "many": "Gruppenchats erstellt"
+            }
+        },
+        "game": {
+            "de": {
+                "single": "Nachricht aus Spielen",
+                "many": "Nachrichten aus Spielen"
+            }
+        },
+        "pinned_message": {
+            "de": {
+                "single": "Angepinnte Nachricht",
+                "many": "Angepinnte Nachrichten"
+            }
+        },
+        "poll": {
+            "de": {
+                "single": "Umfrage",
+                "many": "Umfragen"
+            }
+        },
+        "migrate_from_chat_id": {
+            "de": {
+                "single": "Migrierung aus einem Chat",
+                "many": "Migrierungen aus einem Chat"
+            }
+        },
+        "migrate_to_chat_id": {
+            "de": {
+                "single": "Migrierung in einen Chat",
+                "many": "Migrierungen in einen Chat"
+            }
+        },
+        "channel_chat_created": {
+            "de": {
+                "single": "Kanal erstellt",
+                "many": "Kanäle erstellt"
+            }
+        },
+        "supergroup_chat_created": {
+            "de": {
+                "single": "Supergroup erstellt",
+                "many": "Supergroups erstellt"
+            }
+        },
+        "successfull_payment": {
+            "de": {
+                "single": "Erfolgreicher Bezahlvorgang",
+                "many": "Erfolgreiche Bezahlvorgänge"
+            }
+        },
+        "invoice": {
+            "de": {
+                "single": "Rechnung",
+                "many": "Rechnungen"
+            }
+        },
+        "video_note": {
+            "de": {
+                "single": "Videonotiz",
+                "many": "Videonotizen"
+            }
+        },
+        "gif": {
+            "de": {
+                "single": "Gif",
+                "many": "Gifs"
+            }
+        }
+    }
+}
