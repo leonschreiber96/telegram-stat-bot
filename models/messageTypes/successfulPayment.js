@@ -1,4 +1,4 @@
-import OrderInfo from '../entities/orderInfo';
+import OrderInfo from "../entities/orderInfo";
 
 let SuccessfulPayment = {
     currency:  String,

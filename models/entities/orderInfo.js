@@ -1,4 +1,4 @@
-import ShippingAddress from './shippingAddress'
+import ShippingAddress from "./shippingAddress";
 
 let OrderInfo = {
     name: String,

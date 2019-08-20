@@ -1,4 +1,4 @@
-import PhotoSize from '../entities/photosize';
+import PhotoSize from "../entities/photosize";
 
 let Video = {
     file_id:  String,

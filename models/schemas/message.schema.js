@@ -1,24 +1,25 @@
-import mongoose from 'mongoose';
+// Import external packages
+import mongoose from "mongoose";
 
 // Import message types
-import Animation from '../messageTypes/animation';
-import Audio from '../messageTypes/audio';
-import Contact from '../messageTypes/contact';
-import Document from '../messageTypes/document';
-import Game from '../messageTypes/game';
-import Location from '../messageTypes/location';
-import Poll from '../messageTypes/poll';
-import Sticker from '../messageTypes/sticker';
-import Venue from '../messageTypes/venue';
-import Video from '../messageTypes/video';
-import VideoNote from '../messageTypes/videoNote';
-import Voice from '../messageTypes/voice';
+import Animation from "../messageTypes/animation";
+import Audio from "../messageTypes/audio";
+import Contact from "../messageTypes/contact";
+import Document from "../messageTypes/document";
+import Game from "../messageTypes/game";
+import Location from "../messageTypes/location";
+import Poll from "../messageTypes/poll";
+import Sticker from "../messageTypes/sticker";
+import Venue from "../messageTypes/venue";
+import Video from "../messageTypes/video";
+import VideoNote from "../messageTypes/videoNote";
+import Voice from "../messageTypes/voice";
 
 // Import other needed entities
-import MessageEntity from '../entities/messageEntity';
-import PhotoSize from '../entities/photoSize';
+import MessageEntity from "../entities/messageEntity";
+import PhotoSize from "../entities/photoSize";
 
-let Schema = mongoose.Schema
+let Schema = mongoose.Schema;
 
 let Message = new Schema({
     message_id: {
@@ -88,6 +89,6 @@ let Message = new Schema({
     migrate_to_chat_id: Number,
     migrate_from_chat_id: Number,
     pinned_message: Number
-})
+});
 
-module.exports = mongoose.model('Message', Message)
+module.exports = mongoose.model("Message", Message);

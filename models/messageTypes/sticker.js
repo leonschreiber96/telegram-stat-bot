@@ -1,5 +1,5 @@
-import PhotoSize from '../entities/photosize';
-import MaskPosition from '../entities/maskPosition'
+import PhotoSize from "../entities/photosize";
+import MaskPosition from "../entities/maskPosition";
 
 let Sticker = {
     file_id:  String,

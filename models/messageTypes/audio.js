@@ -1,4 +1,4 @@
-import PhotoSize from '../entities/photosize';
+import PhotoSize from "../entities/photosize";
 
 let Audio = {
     file_id:  String,

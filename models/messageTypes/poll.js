@@ -1,4 +1,4 @@
-import PollOption from '../entities/pollOption';
+import PollOption from "../entities/pollOption";
 
 let Poll = {
     id: String,

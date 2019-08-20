@@ -1,6 +1,7 @@
-import mongoose from 'mongoose';
+// Import external packages
+import mongoose from "mongoose";
 
-let Schema = mongoose.Schema
+let Schema = mongoose.Schema;
 
 let User = new Schema({
     id: {
@@ -18,6 +19,6 @@ let User = new Schema({
     last_name: String,
     username: String,
     language_code: String
-})
+});
 
-module.exports = mongoose.model('User', User)
+export default mongoose.model("User", User);

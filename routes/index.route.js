@@ -1,27 +1,34 @@
-import express from 'express'
+// Import external packages
+import express from "express";
 
-import getMessageTotalRoute from './messages/getMessageTotal.route'
-import getMessagesByUserRoute from './messages/getMessagesByUser.route'
-import getWordCountRoute from './messages/getAverageWordsRoute'
-import getMessagesByWeekdayRoute from './messages/getMessagesByWeekday.route'
-import getMessagesByHourRoute from './messages/getMessagesByHour.route'
-import postMessageRoute from './messages/postMessage.route'
+// Import message routes
+import getMessageTotalRoute from "./messages/getMessageTotal.route";
+import getMessagesByUserRoute from "./messages/getMessagesByUser.route";
+import getWordCountRoute from "./messages/getAverageWordsRoute";
+import getMessagesByWeekdayRoute from "./messages/getMessagesByWeekday.route";
+import getMessagesByHourRoute from "./messages/getMessagesByHour.route";
+import postMessageRoute from "./messages/postMessage.route";
 
-import getMembershipEventsRoute from './meta/getMembershipEventsRoute'
+// Import metadata routes
+import getMembershipEventsRoute from "./meta/getMembershipEventsRoute";
 
-import getUserRoute from './users/getUser.route'
+// Import user routes
+import getUserRoute from "./users/getUser.route";
 
-const router = express.Router()
+const router = express.Router();
 
-router.get('/messages/total/:chatId', getMessageTotalRoute)
-router.get('/messages/byUser/:chatId', getMessagesByUserRoute)
-router.get('/messages/wordCount/:chatId', getWordCountRoute)
-router.get('/messages/byWeekday/:chatId', getMessagesByWeekdayRoute)
-router.get('/messages/byHour/:chatId', getMessagesByHourRoute)
-router.post('/messages', postMessageRoute)
+// Configure message routes
+router.get("/messages/total/:chatId", getMessageTotalRoute);
+router.get("/messages/byUser/:chatId", getMessagesByUserRoute);
+router.get("/messages/wordCount/:chatId", getWordCountRoute);
+router.get("/messages/byWeekday/:chatId", getMessagesByWeekdayRoute);
+router.get("/messages/byHour/:chatId", getMessagesByHourRoute);
+router.post("/messages", postMessageRoute);
 
-router.get('/meta/membership/:chatId', getMembershipEventsRoute)
+// Configute metadata routes
+router.get("/meta/membership/:chatId", getMembershipEventsRoute);
 
-router.get('/user/:id', getUserRoute)
+// Configure user routes
+router.get("/user/:id", getUserRoute);
 
-module.exports = router
+export default router;

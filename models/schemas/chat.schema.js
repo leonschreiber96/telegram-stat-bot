@@ -1,8 +1,9 @@
-import mongoose from 'mongoose';
+// Import external packages
+import mongoose from "mongoose";
 
-import ChatPhoto from '../entities/chatPhoto';
+import ChatPhoto from "../entities/chatPhoto";
 
-let Schema = mongoose.Schema
+let Schema = mongoose.Schema;
 
 let Chat = new Schema({
     id: {
@@ -24,6 +25,6 @@ let Chat = new Schema({
     pinned_message: Number,
     sticker_set_name: String,
     can_set_sticker_set: Boolean
-})
+});
 
-module.exports = mongoose.model('Chat', Chat)
+export default mongoose.model("Chat", Chat);

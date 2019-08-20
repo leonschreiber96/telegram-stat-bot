@@ -1,4 +1,4 @@
-import PhotoSize from '../entities/photoSize';
+import PhotoSize from "../entities/photoSize";
 
 let Animation = {
     file_id:  String,

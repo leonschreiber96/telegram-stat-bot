@@ -1,6 +1,6 @@
-import PhotoSize from '../entities/photoSize';
-import MessageEntity from '../entities/messageEntity';
-import Animation from './animation';
+import PhotoSize from "../entities/photoSize";
+import MessageEntity from "../entities/messageEntity";
+import Animation from "./animation";
 
 let Game = {
     title: String,
