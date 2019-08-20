@@ -5,11 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "node_modules/.bin/babel-node index.js",
-    "teletest": "node_modules/.bin/babel-node app.js",
     "start": "node_modules/.bin/nodemon index.js --exec babel-node --"
   },
   "author": "Leon Schreiber",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
@@ -20,7 +19,6 @@
   },
   "devDependencies": {
     "eslint": "^6.2.1",
-    "eslint-config-google": "^0.13.0",
     "nodemon": "^1.19.1"
   }
 }

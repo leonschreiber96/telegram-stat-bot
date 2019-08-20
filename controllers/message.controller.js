@@ -157,7 +157,7 @@ export async function getWordCount(chatId) {
 
 export async function postMessage(message, metadata) {
     message.message_type = metadata.type === "document" ? (message.animation ? "gif" : "document") : metadata.type;
-
+    
     let preparedMessage = prepareMessageForDb(message);
     console.log("prepared message");
     console.log(preparedMessage);
@@ -185,6 +185,11 @@ async function getAllTexts(chatId) {
 
 function prepareMessageForDb(message) {
     let preparedMessage = Object.assign({}, message);
+
+    preparedMessage.chat.chat_type = message.chat.type;
+    delete preparedMessage.chat.type;
+
+    if (message.reply_to_message) preparedMessage.reply_to_message = message.reply_to_message.message_id;
 
     if (message.entities && message.entities.length === 0) delete preparedMessage.entities;
     if (message.caption_entities && message.caption_entities.length === 0) delete preparedMessage.caption_entities;

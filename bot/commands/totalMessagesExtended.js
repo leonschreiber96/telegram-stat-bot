@@ -3,7 +3,7 @@ import request from "request-promise";
 
 // Import internal packages
 import bot_response from "../botResponse";
-import { getMessageTypeTranslation } from "./translate";
+import { getMessageTypeTranslation } from "../translate";
 
 export default function total_messages_extended(message, bot) {
     let chat = message.chat.id;

@@ -1,4 +1,4 @@
-import User from "../models/schemas/user.schema";
+import User from "../models/entities/user";
 
 export function getUser(id) {
     return new Promise((resolve, reject) => {

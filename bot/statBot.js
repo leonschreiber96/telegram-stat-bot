@@ -14,8 +14,6 @@ export default class StatBot {
     start() {
         this.bot.on("message", (message, metadata) => {
             try {
-                console.log(metadata);
-                console.log(message);
                 request({
                     method: "POST",
                     uri: "http://localhost:5000/messages",
