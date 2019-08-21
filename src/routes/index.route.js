@@ -30,8 +30,8 @@ router.post("/messages", postMessageRoute);
 router.get("/meta/membership/:chatId", getMembershipEventsRoute);
 
 // Configure user routes
-router.get("/user/:id", getUserRoute);
-router.put("/user/:id", upsertUserRoute);
+router.get("/users/:id", getUserRoute);
+router.put("/users", upsertUserRoute);
 
 // TODO: implement authentication!
 export default router;

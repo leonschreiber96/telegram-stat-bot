@@ -10,8 +10,18 @@ export function getUser(id) {
 
 export function upsertUser(user) {
     return new Promise((resolve, reject) => {
-        StatBotUser.findOneAndUpdate({ "id": user.id }, user, { upsert: true })
-            .then(resolve(true))
-            .catch(err => reject(err));
+        if (user.data_collection_consent && !["full", "restricted", "deny"].includes(user.data_collection_consent)) {
+            reject({
+                status: 422,
+                message: "If the data_collection_consent property is set, it must be one of ['full', 'restricted', 'deny']"
+            });
+        } else {
+            StatBotUser.findOneAndUpdate({ "id": user.id }, user, { upsert: true })
+                .then(result => resolve(result))
+                .catch(err => reject({
+                    status: 500,
+                    message: err
+                }));
+        }
     });
 }

@@ -1,12 +1,12 @@
 import Message from "../models/schemas/message.schema";
-import User from "../models/schemas/statBotUser.schema";
+import StatBotUser from "../models/schemas/statBotUser.schema";
 import Chat from "../models/schemas/chat.schema";
 
 export async function getMessageTotal(chatId, extended) {
     if (extended) {
         return new Promise((resolve, reject) => {
             Message.aggregate([{
-                $match: { "chat": chatId }
+                $match: { "chat.id": chatId }
             },
             {
                 $group: {
@@ -31,7 +31,7 @@ export async function getMessageTotal(chatId, extended) {
     } else {
         return new Promise((resolve, reject) => {
             Message.find({
-                "chat": chatId
+                "chat.id": chatId
             }).countDocuments((err, result) => {
                 if (err) reject(err);
                 else resolve(result);
@@ -159,16 +159,23 @@ export async function getWordCount(chatId) {
 
 export async function postMessage(message, metadata) {
     message.message_type = metadata.type === "document" ? (message.animation ? "gif" : "document") : metadata.type;
+
+    getConsentLevel(message.from).then(result => {
+        let consent_level = result.data_collection_consent;
+
+        if (consent_level !== "deny") {
+
+            upsertMissingDocuments(message);
+            let preparedMessage = prepareMessageForDb(message, consent_level);
     
-    upsertMissingDocuments(message);
-    let preparedMessage = prepareMessageForDb(message);
-
-    console.log("prepared message");
-    console.log(preparedMessage);
-
-    let messageSchema = new Message(preparedMessage);
-    messageSchema.save(function(err) {
-        if (err) return console.error(err);
+            console.log("prepared message");
+            console.log(preparedMessage);
+    
+            let messageSchema = new Message(preparedMessage);
+            messageSchema.save(function(err) {
+                if (err) return console.error(err);
+            });
+        }
     });
 }
 
@@ -187,7 +194,15 @@ async function getAllTexts(chatId) {
     });
 }
 
-function prepareMessageForDb(message) {
+async function getConsentLevel(user) {
+    return new Promise((resolve, reject) => {
+        StatBotUser.findOne({ "id": user.id }).select({ "data_collection_consent": 1, "_id": 0 })
+            .then(result => resolve(result))
+            .catch(err => reject(err));
+    });
+}
+
+function prepareMessageForDb(message, consent_level) {
     let preparedMessage = Object.assign({}, message);
 
     preparedMessage.chat.chat_type = message.chat.type;
@@ -202,6 +217,63 @@ function prepareMessageForDb(message) {
     if (message.new_chat_photo && message.new_chat_photo.length === 0) delete preparedMessage.new_chat_photo;
     if (message.game && message.game.text_entities && message.game.text_entities.length === 0) delete preparedMessage.game.text_entities;
     if (message.game && message.game.photo && message.game.photo.length === 0) delete preparedMessage.game.photo;
+
+    if (consent_level === "restricted") {
+        delete preparedMessage.text;
+
+        if (message.audio) {
+            delete preparedMessage.audio.thumb.file_id;
+            delete preparedMessage.audio.file_id;
+        }
+        if (message.document) {
+            delete preparedMessage.document.thumb.file_id;
+            delete preparedMessage.document.file_id;
+        }
+        if (message.animation) {
+            delete preparedMessage.animation.thumb.file_id;
+            delete preparedMessage.animation.file_id;
+        }
+        if (message.photo) {
+            delete preparedMessage.photo.thumb.file_id;
+            delete preparedMessage.photo.file_id;
+        }
+        if (message.sticker) {
+            delete preparedMessage.sticker.thumb.file_id;
+            delete preparedMessage.sticker.file_id;
+        }
+        if (message.video) {
+            delete preparedMessage.video.thumb.file_id;
+            delete preparedMessage.video.file_id;
+        }
+        if (message.voice) {
+            delete preparedMessage.voice.thumb.file_id;
+            delete preparedMessage.voice.file_id;
+        }
+        if (message.video_note) {
+            delete preparedMessage.video_note.thumb.file_id;
+            delete preparedMessage.video_note.file_id;
+        }
+        if (message.caption) {
+            delete preparedMessage.caption.thumb.file_id;
+            delete preparedMessage.caption.file_id;
+        }
+        if (message.contact) {
+            delete preparedMessage.contact.thumb.file_id;
+            delete preparedMessage.contact.file_id;
+        }
+        if (message.location) {
+            delete preparedMessage.location.thumb.file_id;
+            delete preparedMessage.location.file_id;
+        }
+        if (message.venue) {
+            delete preparedMessage.venue.thumb.file_id;
+            delete preparedMessage.venue.file_id;
+        }
+        if (message.poll) {
+            delete preparedMessage.poll.thumb.file_id;
+            delete preparedMessage.poll.file_id;
+        }
+    }
 
     return preparedMessage;
 }
@@ -219,10 +291,11 @@ function upsertUser(user) {
         "id": user.id
     };
 
-    User.findOneAndUpdate(query, user, {
+    StatBotUser.findOneAndUpdate(query, user, {
         upsert: true,
-        useFindAndModify: false
-    }, function (err) {
+        useFindAndModify: false,
+        setDefaultsOnInsert: true
+    }, function(err) {
         if (err) return console.error(err);
     });
 }
@@ -234,8 +307,9 @@ function upsertChat(chat) {
 
     Chat.findOneAndUpdate(query, chat, {
         upsert: true,
-        useFindAndModify: false
-    }, function (err) {
+        useFindAndModify: false,
+        setDefaultsOnInsert: true
+    }, function(err) {
         if (err) return console.error(err);
     });
 }

@@ -12,7 +12,8 @@ let StatBotUser = {
     language_code: String,
     data_collection_consent: {
         type: String,
-        default: "denied"
+        required: true,
+        default: "deny"
     }
 };
 

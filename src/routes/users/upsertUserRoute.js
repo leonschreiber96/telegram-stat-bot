@@ -1,19 +1,25 @@
 import { upsertUser } from "../../controllers/user.controller";
 
 export default function upsertUserRoute(req, res) {
-    let userId = parseInt(req.params.id);
+    let contentData = [];
+    
+    req.on("data", chunk => {
+        contentData.push(chunk);
+    });
 
-    if (isNaN(userId)) {
-        res.status(400).send("id parameter must be an integer");
-    }
+    req.on("end", () => {
+        let user = JSON.parse(contentData);
 
-    upsertUser(userId)
-        .then((result) => {
-            res.status(200).json({
-                result: result
+        upsertUser(user)
+            .then((result) => {
+                res.status(200).json({
+                    result: result
+                });
+            }).catch((error) => {
+                console.error(error);
+                res.status(error.status).send(error.message);
             });
-        }).catch((error) => {
-            console.error(error);
-            res.status(500).send(error);
-        });
+    });
+
+
 }
