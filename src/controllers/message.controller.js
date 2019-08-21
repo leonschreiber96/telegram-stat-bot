@@ -1,3 +1,4 @@
+import config from "../../config.json";
 import Message from "../models/schemas/message.schema";
 import StatBotUser from "../models/schemas/statBotUser.schema";
 import Chat from "../models/schemas/chat.schema";
@@ -160,23 +161,30 @@ export async function getWordCount(chatId) {
 export async function postMessage(message, metadata) {
     message.message_type = metadata.type === "document" ? (message.animation ? "gif" : "document") : metadata.type;
 
-    getConsentLevel(message.from).then(result => {
-        let consent_level = result.data_collection_consent;
+    let save = true;
 
-        if (consent_level !== "deny") {
+    if (config.blacklist && config.blacklist.includes(message.chat.id)) save = false;
+    if (config.whitelist && !config.whitelist.includes(message.chat.id)) save = false;
 
-            upsertMissingDocuments(message);
-            let preparedMessage = prepareMessageForDb(message, consent_level);
-    
-            console.log("prepared message");
-            console.log(preparedMessage);
-    
-            let messageSchema = new Message(preparedMessage);
-            messageSchema.save(function(err) {
-                if (err) return console.error(err);
-            });
-        }
-    });
+    if (save) {
+        getConsentLevel(message.from).then(result => {
+            let consent_level = result.data_collection_consent;
+
+            if (consent_level !== "deny") {
+
+                upsertMissingDocuments(message);
+                let preparedMessage = prepareMessageForDb(message, consent_level);
+
+                console.log("prepared message");
+                console.log(preparedMessage);
+
+                let messageSchema = new Message(preparedMessage);
+                messageSchema.save(function(err) {
+                    if (err) return console.error(err);
+                });
+            }
+        });
+    }
 }
 
 async function getAllTexts(chatId) {
