@@ -9,7 +9,7 @@ export default function consent(message, consent_level, stat_bot) {
 
     request({
         method: "PUT",
-        uri: "http://localhost:5000/users",
+        uri: `http://localhost:${stat_bot.backend_port}/users`,
         json: true,
         body: {
             ...message.from,

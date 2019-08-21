@@ -8,7 +8,7 @@ import { getMessageTypeTranslation } from "../translate";
 export default function total_messages_extended(message, stat_bot) {
     let chat = message.chat.id;
     request({
-        uri: `http://localhost:5000/messages/total/${chat}?extended=true`,
+        uri: `http://localhost:${stat_bot.backend_port}/messages/total/${chat}?extended=true`,
         json: true
     }).then((response) => {
         let total_messages_grouped = response.result;
