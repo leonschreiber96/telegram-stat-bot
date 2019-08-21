@@ -1,28 +1,29 @@
 {
-  "name": "telegram-stat-bot",
-  "version": "0.0.1",
-  "description": "Backend server that accepts and processes requests from telegram-stat-bot",
-  "main": "index.js",
-  "scripts": {
-    "debug": "nodemon --inspect --watch src --exec node_modules/.bin/babel-node --presets env src/index.js",
-    "test": "node_modules/.bin/babel-node src/index.js",
-    "start": "node src/checkConfig.js && \"node_modules/.bin/nodemon\" src/index.js --exec \"node_modules/.bin/babel-node --\""
-  },
-  "author": "Leon Schreiber",
-  "license": "MIT",
-  "dependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "colors": "^1.3.3",
-    "express": "^4.17.1",
-    "inquirer": "^6.5.1",
-    "mongoose": "^5.6.6",
-    "node-telegram-bot-api": "^0.30.0",
-    "request-promise": "^4.2.4"
-  },
-  "devDependencies": {
-    "eslint": "^6.2.1",
-    "nodemon": "^1.19.1"
-  }
+    "name": "telegram-stat-bot",
+    "version": "0.0.1",
+    "description": "Backend server that accepts and processes requests from telegram-stat-bot",
+    "main": "index.js",
+    "scripts": {
+        "debug": "nodemon --inspect --watch src --exec node_modules/.bin/babel-node --presets env src/index.js",
+        "dev": "node src/setupConfig.js && \"node_modules/.bin/nodemon\" src/index.js --exec \"node_modules/.bin/babel-node --\"",
+        "start": "node src/setupConfig.js && \"node_modules/.bin/babel-node\" src/index.js"
+    },
+    "author": "Leon Schreiber",
+    "license": "MIT",
+    "dependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-plugin-transform-object-rest-spread": "^6.26.0",
+        "babel-preset-env": "^1.7.0",
+        "colors": "^1.3.3",
+        "express": "^4.17.1",
+        "get-port": "^5.0.0",
+        "inquirer": "^6.5.1",
+        "mongoose": "^5.6.6",
+        "node-telegram-bot-api": "^0.30.0",
+        "request-promise": "^4.2.4"
+    },
+    "devDependencies": {
+        "eslint": "^6.2.1",
+        "nodemon": "^1.19.1"
+    }
 }

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 const inquirer = require("inquirer");
 const fs = require("fs");
@@ -30,7 +29,7 @@ if (!config_available) {
         type: "list",
         name: "port_selection",
         message: "On which port should the backend operate? ",
-        choices: ["Always choose a free one by yourself", "I want to choose my own fixed port"],
+        choices: ["Always choose a random free one by yourself at startup", "I want to choose my own fixed port"],
         when: answers => answers["manual_config"]
     }, {
         type: "number",
@@ -47,8 +46,8 @@ if (!config_available) {
         type: "input",
         name: "listed_chats",
         message: answers => {
-            let list_type = answers["white_black_listing"].substring(answers["white_black_listing"].lastIndexOf(" ") + 1, answers["white_black_listing"].length)
-            return `Please enter the chat you want to include in your ${list_type} as numbers separated by commas. Spaces will be ignored.`
+            let list_type = answers["white_black_listing"].substring(answers["white_black_listing"].lastIndexOf(" ") + 1, answers["white_black_listing"].length);
+            return `Please enter the chat you want to include in your ${list_type} as numbers separated by commas. Spaces will be ignored.`;
         },
         when: answers => answers["white_black_listing"].startsWith("Yes")
     }]).then(answers => {

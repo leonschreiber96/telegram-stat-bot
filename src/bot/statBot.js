@@ -14,7 +14,7 @@ export default class StatBot {
         this.own_id = own_id;
     }
 
-    start() {
+    registerHandlers() {
         this.bot.on("message", on_message);
         this.bot.on("new_chat_members", (message) => on_new_chat_members(message, this));
         // TODO: special text in case there are zero messages yet (e.g. if nobody gave consent yet)
