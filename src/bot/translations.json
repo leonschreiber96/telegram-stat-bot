@@ -14,6 +14,53 @@
             "de": [
                 "Wer schreibt in der Gruppe wie viel?"
             ]
+        },
+        "introduction_group": {
+            "de": [
+                "Schön, dass ich bei euch sein darf, p[group_name] 👍.",
+                "",
+                "Ich bin Bob der Statistiker und wenn ihr wollt, sammle ich für euch eure Nachrichten und erstelle interessante Statistiken und Grafiken daraus."
+            ]
+        },
+        "introduction_new_members": {
+            "de": [
+                "Hallo, p[new_members]! 😊",
+                "Ein herzliches Willkommen in der Gruppe von mir. Ich bin Bob der Statistiker 👋",
+                "Ich sammle hier Nachrichten und erstelle interessante Statistiken und Grafiken für euch daraus."
+            ]
+        },
+        "ask_for_consent_multiple_members": {
+            "de": [
+                "Ich kann natürlich nicht einfach so ohne Erlaubnis all eure persönlichen Daten speichern - dafür brauche ich zuerst eure Zustimmung 😇.",
+                "Wenn ihr damit einverstanden seid, dass eure Nachrichten inklusive Inhalt gespeichert werden, sendet bitte kurz `/consent full` in den Chat, damit ich anfangen kann, zu arbeiten!",
+                "",
+                "Wenn ihr damit einverstanden seid, dass die Anzahl und das Datum eurer Nachrichten gespeichert werden, der Inhalt aber nicht, dann sendet einfach `/consent restricted` in den Chat und ich weiß auch darüber Bescheid.",
+                "",
+                "Wenn ihr komplett unsichtbar bleiben wollt, schreibt einfach nichts davon und ich werde eure Nachrichten ungelesen verwerfen. Versprochen! Seid euch jedoch bewusst, dass in diesem Fall die Statistiken für die gesamte Gruppe verfälscht werden könnten (z.B. Gesamtzahl der Nachrichten, oder Anteile der einzelnen Nutzer daran)."
+            ]
+        },
+        "ask_for_consent_single_member": {
+            "de": [
+                "Ich kann natürlich nicht einfach so ohne Erlaubnis all deine persönlichen Daten speichern - dafür brauche ich zuerst deine Zustimmung 😇.",
+                "Wenn du damit einverstanden bist, dass deine Nachrichten inklusive Inhalt gespeichert werden, sende bitte kurz `/consent full` in den Chat, damit ich anfangen kann, zu arbeiten!",
+                "",
+                "Wenn du damit einverstanden bist, dass die Anzahl und das Datum deiner Nachrichten gespeichert werden, der Inhalt aber nicht, dann sende einfach `/consent restricted` in den Chat und ich weiß auch darüber Bescheid.",
+                "",
+                "Wenn du komplett unsichtbar bleiben willst, schreib einfach nichts davon und ich werde deine Nachrichten ungelesen verwerfen. Versprochen! Sei dir jedoch bewusst, dass in diesem Fall die Statistiken für die gesamte Gruppe verfälscht werden könnten (z.B. Gesamtzahl der Nachrichten, oder Anteile der einzelnen Nutzer daran)."
+            ]
+        },
+        "confirm_consent_update": {
+            "de": [
+                "Alles klar, p[user_name]. Ich habe deine Einstellungen zum Daten sammeln von `p[previous_value]` auf `p[new_value]` geändert."
+            ]
+        },
+        "invalid_consent_update": {
+            "de": [
+                "Das ist leider kein gültiger Wer für deine Einstellungen. Zulässig sind",
+                "· `full`",
+                "· `restricted`",
+                "· `deny`"
+            ]
         }
     },
     "message_types": {

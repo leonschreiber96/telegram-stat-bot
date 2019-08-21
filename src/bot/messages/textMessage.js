@@ -1,11 +1,11 @@
-import { getBotReplyTranslation } from "./translate";
+import { getBotReplyTranslation } from "../translate";
 
-export default class bot_response {
-    constructor(parse_mode, bot, chat, language) {
-        this.parse_mode = parse_mode;
+export default class TextMessage {
+    constructor(bot, chat, language, parse_mode) {
         this.bot = bot;
         this.chat = chat;
         this.language = language;
+        this.parse_mode = parse_mode;
         this.lines = [];
     }
 
@@ -18,15 +18,18 @@ export default class bot_response {
         this.lines.push(text);
     }
 
-    use_translation(key, params) {
+    add_line_translated(key, params) {
         this.lines.push(getBotReplyTranslation(key, this.language, params));
     }
 
     send() {
         let text = this.lines.join("\n");
-        this.bot.sendMessage(this.chat, text, {
-            parse_mode: this.parse_mode,
+        let options = {
             disable_notification: true
-        });
+        };
+
+        if (this.parse_mode) options.parse_mode = this.parse_mode;
+
+        this.bot.sendMessage(this.chat, text, options);
     }
 }

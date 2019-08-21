@@ -6,7 +6,7 @@ import bodyParser from "body-parser";
 // Import internal packages
 import router from "./routes/index.route";
 import StatBot from "./bot/statBot";
-import config from "./config.json";
+import config from "../config.json";
 
 // Set up node server
 const app = express();
@@ -33,5 +33,5 @@ db.once("open", function() {
 
 // Set up Telegram bot
 // TODO: handle errors in telegram bot execution
-const stat_bot = new StatBot(config.telegram_bot_token);
+const stat_bot = new StatBot(config.telegram_bot_token, config.own_id);
 stat_bot.start();
