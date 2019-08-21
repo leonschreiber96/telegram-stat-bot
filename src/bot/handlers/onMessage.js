@@ -1,11 +1,11 @@
 // Import external packages
 import request from "request-promise";
 
-export default function on_message(message, metadata) {
+export default function on_message(message, metadata, stat_bot) {
     try {
         request({
             method: "POST",
-            uri: "http://localhost:5000/messages",
+            uri: `http://localhost:${stat_bot.backend_port}/messages`,
             json: true,
             body: {
                 message: message,

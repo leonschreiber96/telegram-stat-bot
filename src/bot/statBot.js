@@ -9,17 +9,18 @@ import on_new_chat_members from "./handlers/onNewChatMembers";
 import consent from "./commands/consent";
 
 export default class StatBot {
-    constructor(token, own_id) {
+    constructor(token, own_id, backend_port) {
         this.bot = new TelegramBot(token, { polling: true });
         this.own_id = own_id;
+        this.backend_port = backend_port;
     }
 
-    start() {
-        this.bot.on("message", on_message);
-        this.bot.on("new_chat_members", (message) => on_new_chat_members(message, this));
+    registerHandlers() {
+        this.bot.on("message", (message, metadata) => on_message(message, metadata, this));
+        this.bot.on("new_chat_members", message => on_new_chat_members(message, this));
         // TODO: special text in case there are zero messages yet (e.g. if nobody gave consent yet)
-        this.bot.onText(/\/total_messages$/, (message) => total_messages(message, this));
-        this.bot.onText(/\/total_messages_extended$/, (message) => total_messages_extended(message, this));
+        this.bot.onText(/\/total_messages$/, message => total_messages(message, this));
+        this.bot.onText(/\/total_messages_extended$/, message => total_messages_extended(message, this));
         this.bot.onText(/\/consent (\w+)$/, (message, match) => consent(message, match[1], this));
     }
 

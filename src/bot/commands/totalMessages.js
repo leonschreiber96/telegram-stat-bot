@@ -7,7 +7,7 @@ import TextMessage from "../messages/textMessage";
 export default function total_messages(message, stat_bot) {
     let chat = message.chat.id;
     request({
-        uri: `http://localhost:5000/messages/total/${chat}`,
+        uri: `http://localhost:${stat_bot.backend_port}/messages/total/${chat}`,
         json: true
     }).then((response) => {
         let total_messages = response.result;
