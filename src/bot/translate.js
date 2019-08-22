@@ -5,7 +5,6 @@ export function getMessageTypeTranslation(key, lang, plural) {
 }
 
 export function getBotReplyTranslation(key, lang, params) {
-    console.log(translations.bot_replies);
     let lines = translations.bot_replies[key] ? translations.bot_replies[key][lang] : undefined;
 
     if (lines) {

@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import express from "express";
 import bodyParser from "body-parser";
 import getPort from "get-port";
-
+import colors from "colors/safe";
 
 // Import internal packages
 import router from "./routes/index.route";
@@ -14,15 +14,14 @@ export async function setup_database() {
     return new Promise((resolve, reject) => {
         try {
             mongoose.connect("mongodb://localhost/statbottest", { useNewUrlParser: true });
-
             var db = mongoose.connection;
             db.on("error", console.error.bind(console, "connection error:"));
             db.once("open", function() {
-                resolve("✔ connected to db");
+                resolve(`${colors.green("✔")} connected to database`);
             });
         } catch (error) {
             reject({
-                message: "❌ An error occurred while setting up MongoDB with Mongoose. Is your connection string correct?",
+                message: `${colors.red("❌")} An error occurred while setting up MongoDB with Mongoose. Is your connection string correct?`,
                 error: error
             });
         }
@@ -41,7 +40,7 @@ export async function setup_backend() {
 
             app.listen(port, () => {
                 resolve({
-                    message: `✔ server running on port ${port}`,
+                    message: `${colors.green("✔")} server running on port ${port}`,
                     port: port
                 });
             }).on("error", error => {
@@ -49,7 +48,7 @@ export async function setup_backend() {
             });
         } catch (error) {
             reject({
-                message: "❌ An error occurred while setting up node + express.",
+                message: `${colors.red("❌")} An error occurred while setting up node + express.`,
                 error: error
             });
         }
@@ -62,10 +61,10 @@ export async function setup_bot(backend_port) {
             // TODO: handle errors in telegram bot execution
             const stat_bot = new StatBot(config.telegram_bot_token, config.own_id, backend_port);
             stat_bot.registerHandlers();
-            resolve("✔ Stat bot started and initialized successfully");
+            resolve(`${colors.green("✔")} Stat bot started and initialized successfully`);
         } catch (error) {
             reject({
-                message: "❌ An error occurred while setting up the telegram bot. Is your token already in use?",
+                message: `${colors.red("❌")} An error occurred while setting up the telegram bot. Is your token already in use?`,
                 error: error
             });
         }

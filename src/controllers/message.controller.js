@@ -7,25 +7,25 @@ export async function getMessageTotal(chat_id, extended) {
     if (extended) {
         return new Promise((resolve, reject) => {
             Message.aggregate([{
-                        $match: { "chat.id": chat_id }
-                    },
-                    {
-                        $group: {
-                            _id: "$message_type",
-                            count: { $sum: 1 }
-                        }
-                    },
-                    {
-                        $sort: { "count": -1 }
-                    },
-                    {
-                        $project: {
-                            "_id": 0,
-                            "type": "$_id",
-                            "count": 1
-                        }
-                    }
-                ])
+                $match: { "chat.id": chat_id }
+            },
+            {
+                $group: {
+                    _id: "$message_type",
+                    count: { $sum: 1 }
+                }
+            },
+            {
+                $sort: { "count": -1 }
+            },
+            {
+                $project: {
+                    "_id": 0,
+                    "type": "$_id",
+                    "count": 1
+                }
+            }
+            ])
                 .then(result => resolve(result))
                 .catch(err => reject(err));
         });
@@ -173,7 +173,10 @@ export async function postMessage(message, metadata) {
                 upsertMissingDocuments(message);
                 let preparedMessage = prepareMessageForDb(message, consent_level);
 
-                console.log("prepared message");
+                console.log();
+                console.log("-------------------------------------------------------------");
+                console.log();
+                console.log("Received message from bot:");
                 console.log(preparedMessage);
 
                 let messageSchema = new Message(preparedMessage);

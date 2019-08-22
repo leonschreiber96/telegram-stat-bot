@@ -33,4 +33,11 @@ export default class StatBot {
             return `@${user.username.trim()}`;
         }
     }
+
+    log(lines) {
+        console.log();
+        console.log("-------------------------------------------------------------");
+        console.log();
+        lines.forEach(x => console.log(x));
+    }
 }

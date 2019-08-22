@@ -3,11 +3,11 @@ import request from "request-promise";
 
 // Import internal packages
 import TextMessage from "../messages/textMessage";
-import { getMessageTypeTranslation } from "../translate";
 
 export default function messages_per_user(message, stat_bot) {
     let chat = message.chat.id;
     let bot = stat_bot.bot;
+    let log = ["/total_messages_extended"];
 
     console.log(`http://localhost:${stat_bot.backend_port}/messages/byuser/${chat}`);
 
@@ -17,8 +17,10 @@ export default function messages_per_user(message, stat_bot) {
     }).then((response) => {
         let messages_per_user = response.result;
         let reply = new TextMessage(bot, chat, "de", "Markdown");
-        // let max_digits = Math.max(...messages_per_user.map(x => x.count.toString().length));
 
+        log.push(messages_per_user);
+        stat_bot.log(log);
+        
         reply.add_line_translated("messages_per_user");
 
         messages_per_user.forEach((x) => {
