@@ -97,6 +97,25 @@
                 "· `restricted`",
                 "· `deny`"
             ]
+        },
+        "personal_data_group": {
+            "de": [
+                "Alles klar. Ich habe dir eine private Nachricht geschickt."
+            ]
+        },
+        "personal_data_private": {
+            "de": [
+                "Hey, *p[user_address]*!",
+                "Du hast in der Gruppe *p[group_name]* deine persönlichen Daten angefragt. Hier ist ein Überblick darüber, was ich über dich gespeichert habe:",
+                "",
+                "· `p[message_count]` Nachrichten aus `p[chat_count]` Chats.",
+                "· Vorname: `p[first_name]`",
+                "· Nachname: `p[last_name]`",
+                "· Nutzername: `p[username]`",
+                "· Telegram ID: `p[telegram_id]`",
+                "· Datensammelerlaubnis: `p[consent_level]`",
+                "· Sprache: `p[language_code]`"
+            ]
         }
     },
     "message_types": {

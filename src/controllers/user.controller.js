@@ -1,4 +1,5 @@
 import StatBotUser from "../models/schemas/statBotUser.schema";
+import Message from "../models/schemas/message.schema";
 
 export function getUser(id) {
     return new Promise((resolve, reject) => {
@@ -6,6 +7,21 @@ export function getUser(id) {
             .then(result => resolve(result))
             .catch(err => reject(err));
     });
+}
+
+export async function getPersonalData(id) {
+    let user = (await StatBotUser.find({ "id": id }))[0];
+    let messages_per_chat = await Message.aggregate([{
+        $match: { "from.id": 37147413 }
+    }, {
+        $group: { _id: "$chat.id", count: { $sum: 1 } }
+    }]);
+
+    return {
+        user,
+        message_count: messages_per_chat.map(x => x.count).reduce((a, b) => a + b, 0),
+        chat_count: messages_per_chat.length,
+    };
 }
 
 export function upsertUser(user) {

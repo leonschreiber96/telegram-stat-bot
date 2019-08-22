@@ -8,7 +8,6 @@ export default class MessageCollection {
     }
 
     send_all() {
-        console.log(this.messages);
         this.messages.forEach((message, index) => {
             setTimeout(() => message.send(), 1000 * index);
         });

@@ -20,6 +20,6 @@ export function getBotReplyTranslation(key, lang, params) {
 
         return text;
     } else {
-        return `Missing translation for [en]: ${key}`;
+        return `Missing translation for ${lang}: ${key}`;
     }
 }

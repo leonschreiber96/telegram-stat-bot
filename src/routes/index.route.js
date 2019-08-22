@@ -14,6 +14,7 @@ import getMembershipEventsRoute from "./meta/getMembershipEventsRoute";
 
 // Import user routes
 import getUserRoute from "./users/getUser.route";
+import getPersonalDataRoute from "./users/getPersonalData.route";
 import upsertUserRoute from "./users/upsertUserRoute";
 
 const router = express.Router();
@@ -31,6 +32,7 @@ router.get("/meta/membership/:chatId", getMembershipEventsRoute);
 
 // Configure user routes
 router.get("/users/:id", getUserRoute);
+router.get("/users/:id/data", getPersonalDataRoute);
 router.put("/users", upsertUserRoute);
 
 // TODO: implement authentication!
