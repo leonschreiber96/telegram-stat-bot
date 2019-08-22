@@ -116,6 +116,23 @@
                 "· Datensammelerlaubnis: `p[consent_level]`",
                 "· Sprache: `p[language_code]`"
             ]
+        },
+        "group_chat_data": {
+            "de":[
+                "Dies ist ein Gruppenchat.",
+                "· ID: `p[id]`",
+                "· Name: `p[title]`",
+                "· Alle Mitglieder sind Admins: `p[all_members_are_administrators]`"
+            ]
+        },
+        "private_chat_data": {
+            "de":[
+                "Dies ist ein privater Chat",
+                "· ID: `p[id]`",
+                "· Vorname: `p[first_name]`",
+                "· Nachname: `p[last_name]`",
+                "· Nutzername: `p[username]`"
+            ]
         }
     },
     "message_types": {
