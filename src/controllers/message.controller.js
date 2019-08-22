@@ -51,6 +51,9 @@ export async function getMessagesByUser(chat_id, extended) {
                     "_id": "$from",
                     "count": { $sum: 1 }
                 }
+            },
+            {
+                $sort: { "count": -1 }
             }
         ], (err, result) => {
             if (err) reject(err);

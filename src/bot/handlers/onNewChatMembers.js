@@ -1,3 +1,6 @@
+// Import external packages
+import request from "request-promise";
+
 // Import internal packages
 import TextMessage from "../messages/textMessage";
 import DocumentMessage from "../messages/documentMessage";
@@ -39,8 +42,26 @@ function user_enter_chat(message, stat_bot) {
 
     let human_new_members = message.new_chat_members.filter(x => !x.is_bot);
 
+    human_new_members.forEach(x => {
+        x.user_already_in_db = request({
+            uri: `http://localhost:${stat_bot.backend_port}/users/${x.id}`,
+            json: true
+        }).result.length > 0;
+    });
+
     let introduction = new TextMessage(bot, chat, config.language_default, "Markdown");
-    introduction.add_line_translated("introduction_new_members", { new_members: human_new_members.map(x => stat_bot.getUserAddress(x)).join(", ") });
+
+    if (human_new_members.every(x => x.user_already_in_db)) {
+        if (human_new_members.length > 1) {
+            introduction.add_line_translated("introduction_known_member", { new_members: human_new_members.map(x => stat_bot.get_user_address(x)).join(", ") });        
+        } else {
+            introduction.add_line_translated("introduction_known_members", { new_members: human_new_members.map(x => stat_bot.get_user_address(x)).join(", ") });        
+        }
+    } else if (human_new_members.some(x => x.user_already_in_db)) {
+        introduction.add_line_translated("introduction_some_known_members", { new_members: human_new_members.map(x => stat_bot.get_user_address(x)).join(", ") });        
+    } else {
+        introduction.add_line_translated("introduction_unknown_members", { new_members: human_new_members.map(x => stat_bot.get_user_address(x)).join(", ") });        
+    }
 
     let ask_for_consent = new TextMessage(bot, chat, config.language_default, "Markdown");
     ask_for_consent.add_line_translated(human_new_members.length > 1 ? "ask_for_consent_multiple_members" : "ask_for_consent_single_member");

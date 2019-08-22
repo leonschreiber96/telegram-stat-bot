@@ -22,11 +22,33 @@
                 "Ich bin Bob der Statistiker und wenn ihr wollt, sammle ich für euch eure Nachrichten und erstelle interessante Statistiken und Grafiken daraus."
             ]
         },
-        "introduction_new_members": {
+        "introduction_unknown_members": {
             "de": [
                 "Hallo, p[new_members]! 😊",
                 "Ein herzliches Willkommen in der Gruppe von mir. Ich bin Bob der Statistiker 👋",
                 "Ich sammle hier Nachrichten und erstelle interessante Statistiken und Grafiken für euch daraus."
+            ]
+        },
+        "introduction_some_known_members": {
+            "de": [
+                "Hallo, p[new_members]! 😊",
+                "Ein herzliches Willkommen in der Gruppe von mir. Einige von euch kennen mich ja schon! Freut mich, euch hier wiederzusehen 👋",
+                "Für die unbekannten Gesichter: Ich bin Bob der Statistiker.",
+                "Ich sammle Nachrichten und erstelle interessante Statistiken und Grafiken für euch daraus."
+            ]
+        },
+        "introduction_known_members": {
+            "de": [
+                "Hallo, p[new_members]! 😊",
+                "Ein herzliches Willkommen in der Gruppe von mir. Ich hab euch ja alle schon mal getroffen! Freut mich, euch hier wiederzusehen 👋",
+                "Ihr kennt ja das Procedere: Ich sammle Nachrichten und erstelle interessante Statistiken und Grafiken für euch daraus."
+            ]
+        },
+        "introduction_known_member": {
+            "de": [
+                "Hallo, p[new_members]! 😊",
+                "Ein herzliches Willkommen in der Gruppe von mir. Wir haben uns ja schon mal gesehen. Freut mich, dich hier wieder zu treffen 👋",
+                "Du kennst ja das Procedere: Ich sammle Nachrichten und erstelle interessante Statistiken und Grafiken für euch daraus."
             ]
         },
         "ask_for_consent_multiple_members": {

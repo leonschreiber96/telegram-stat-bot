@@ -20,7 +20,7 @@ export default function consent(message, consent_level, stat_bot) {
         let reply = new TextMessage(stat_bot.bot, chat, "de", "Markdown");
 
         reply.add_line_translated("confirm_consent_update", {
-            user_name: stat_bot.getUserAddress(message.from),
+            user_name: stat_bot.get_user_address(message.from),
             previous_value: response.result.data_collection_consent,
             new_value: consent_level
         });

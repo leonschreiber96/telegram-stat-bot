@@ -18,6 +18,11 @@ export default class TextMessage {
         this.lines.push(text);
     }
 
+    add_chart(chart_data) {
+        let url = `https://quickchart.io/chart?width=500&height=300&c=${JSON.stringify(chart_data).replace(/"/g, "'")}`;
+        this.add_link(url, "‎");
+    }
+
     add_line_translated(key, params) {
         this.lines.push(getBotReplyTranslation(key, this.language, params));
     }

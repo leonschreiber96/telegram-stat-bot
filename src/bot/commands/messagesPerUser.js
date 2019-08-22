@@ -33,16 +33,14 @@ function reply(stat_bot, message, messages_per_user) {
             labels: [...messages_per_user.map(x => stat_bot.get_user_address(x._id))],
             datasets: [{
                 label: "total message percentage",
-                data: messages_per_user.map(x => x.percentage)
+                data: messages_per_user.map(x => x.count)
             }]
         }
     };
 
-    let url = `https://quickchart.io/chart?width=500&height=300&c=${JSON.stringify(chart_data).replace(/"/g, "'")}`;
-
     reply.add_line_translated("messages_per_user");
-    // reply.add_line(url);
-    reply.add_link(url, "‎");
+    
+    reply.add_chart(chart_data);
 
     messages_per_user.forEach((x) => {
         reply.add_line(`${messages_per_user.indexOf(x) + 1}. ${stat_bot.get_user_address(x._id)}: \`${x.count}\` messages (\`${x.percentage}%\`)`);
