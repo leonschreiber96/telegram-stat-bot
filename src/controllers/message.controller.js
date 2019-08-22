@@ -3,36 +3,36 @@ import Message from "../models/schemas/message.schema";
 import StatBotUser from "../models/schemas/statBotUser.schema";
 import Chat from "../models/schemas/chat.schema";
 
-export async function getMessageTotal(chatId, extended) {
+export async function getMessageTotal(chat_id, extended) {
     if (extended) {
         return new Promise((resolve, reject) => {
             Message.aggregate([{
-                $match: { "chat.id": chatId }
-            },
-            {
-                $group: {
-                    _id: "$message_type",
-                    count: { $sum: 1 }
-                }
-            },
-            {
-                $sort: { "count": -1 }
-            },
-            {
-                $project: {
-                    "_id": 0,
-                    "type": "$_id",
-                    "count": 1
-                }
-            }
-            ])
+                        $match: { "chat.id": chat_id }
+                    },
+                    {
+                        $group: {
+                            _id: "$message_type",
+                            count: { $sum: 1 }
+                        }
+                    },
+                    {
+                        $sort: { "count": -1 }
+                    },
+                    {
+                        $project: {
+                            "_id": 0,
+                            "type": "$_id",
+                            "count": 1
+                        }
+                    }
+                ])
                 .then(result => resolve(result))
                 .catch(err => reject(err));
         });
     } else {
         return new Promise((resolve, reject) => {
             Message.find({
-                "chat.id": chatId
+                "chat.id": chat_id
             }).countDocuments((err, result) => {
                 if (err) reject(err);
                 else resolve(result);
@@ -43,17 +43,15 @@ export async function getMessageTotal(chatId, extended) {
 
 // TODO: use param to returne extended stats
 // eslint-disable-next-line no-unused-vars
-export async function getMessagesByUser(chatId, extended) {
+export async function getMessagesByUser(chat_id, extended) {
     return new Promise((resolve, reject) => {
-        Message.aggregate([{
-            $match: { "chat": chatId }
-        },
-        {
-            $group: {
-                _id: "$from",
-                count: { $sum: 1 }
+        Message.aggregate([{ $match: { "chat.id": chat_id } },
+            {
+                $group: {
+                    "_id": "$from",
+                    "count": { $sum: 1 }
+                }
             }
-        }
         ], (err, result) => {
             if (err) reject(err);
             else resolve(result);
@@ -61,26 +59,26 @@ export async function getMessagesByUser(chatId, extended) {
     });
 }
 
-export async function getMessagesByWeekday(chatId) {
+export async function getMessagesByWeekday(chat_id) {
     return new Promise((resolve, reject) => {
         try {
-            let messagesByWeekday = (Message.aggregate([{
-                "$match": { chat: chatId }
-            },
-            {
-                "$group": {
-                    "_id": {
-                        "weekday": {
-                            "$dayOfWeek": {
-                                "date": {
-                                    "$toDate": { "$multiply": [1000, "$date"] }
+            let messagesByWeekday = (Message.aggregate([{ "$match": { "chat.id": chat_id } },
+                {
+                    "$group": {
+                        "_id": {
+                            "weekday": {
+                                "$dayOfWeek": {
+                                    "date": {
+                                        "$toDate": {
+                                            "$multiply": [1000, "$date"]
+                                        }
+                                    }
                                 }
-                            }
+                            },
+                            "count": { "$sum": 1 }
                         }
-                    },
-                    "count": { "$sum": 1 }
+                    }
                 }
-            }
             ])).map(x => {
                 return {
                     weekday: {

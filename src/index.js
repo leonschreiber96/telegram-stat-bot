@@ -11,8 +11,8 @@ setup_database()
     .then(message => {
         console.log(message);
         setup_backend().then(message => {
-            console.log(message);
-            setup_bot().then(message => {
+            console.log(message.message);
+            setup_bot(message.port).then(message => {
                 console.log(message);
                 console.log(colors.bgGreen.black("----- Everything up and running! -----------------------------"));
             });

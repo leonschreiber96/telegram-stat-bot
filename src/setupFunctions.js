@@ -40,7 +40,10 @@ export async function setup_backend() {
             app.use(bodyParser.json());
 
             app.listen(port, () => {
-                resolve(`✔ server running on port ${port}`);
+                resolve({
+                    message: `✔ server running on port ${port}`,
+                    port: port
+                });
             }).on("error", error => {
                 console.error("error", error.code);
             });
@@ -53,11 +56,11 @@ export async function setup_backend() {
     });
 }
 
-export async function setup_bot() {
+export async function setup_bot(backend_port) {
     return new Promise((resolve, reject) => {
         try {
             // TODO: handle errors in telegram bot execution
-            const stat_bot = new StatBot(config.telegram_bot_token, config.own_id);
+            const stat_bot = new StatBot(config.telegram_bot_token, config.own_id, backend_port);
             stat_bot.registerHandlers();
             resolve("✔ Stat bot started and initialized successfully");
         } catch (error) {

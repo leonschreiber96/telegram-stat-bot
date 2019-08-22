@@ -10,10 +10,10 @@ export default function getMessagesByUserRoute(req, res) {
 
     getMessagesByUser(chatId, extended)
         .then((result) => {
-            let totalMessages = result.map(x => x.count).reduce((sum, value) => sum + value);
+            let total_messages = result.map(x => x.count).reduce((sum, value) => sum + value);
 
             for (let i = 0; i < result.length; i++) {
-                result[i].percentage = +((result[i].count / totalMessages) * 100).toFixed(2);
+                result[i].percentage = +((result[i].count / total_messages) * 100).toFixed(2);
             }
 
             res.status(200).json({
