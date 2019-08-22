@@ -2,24 +2,38 @@
     "bot_replies": {
         "total_messages": {
             "de": [
-                "Seit ich hier bin wurden insgesamt `p[total_messages]` Nachrichten geschrieben"
+                "Seit ich hier bin wurden insgesamt `p[total_messages]` Nachrichten geschrieben."
+            ], 
+            "en": [
+                "Since I'm here, `p[total_messages] messages have been sent in total.`"
             ]
         },
         "total_messages_extended": {
             "de": [
                 "Seit ich hier bin wurden insgesamt `p[total_messages]` Nachrichten geschrieben. Darunter waren"
+            ], 
+            "en": [
+                "Since I'm here, `p[total_messages] messages have been sent in total. These include`"
             ]
         },
         "messages_per_user": {
             "de": [
                 "Wer schreibt in der Gruppe wie viel?"
+            ],
+            "en": [
+                "Who writes how much in the group?"
             ]
         },
         "introduction_group": {
             "de": [
-                "Schön, dass ich bei euch sein darf, p[group_name] 👍.",
+                "Schön, dass ich bei euch sein darf, p[group_name] 👍",
                 "",
                 "Ich bin Bob der Statistiker und wenn ihr wollt, sammle ich für euch eure Nachrichten und erstelle interessante Statistiken und Grafiken daraus."
+            ],
+            "en": [
+                "Glad that I can be with you, p[group_name] 👍",
+                "",
+                "I'm Bob the Statistician and if you like, I collect your messages and create interesting statistics and charts for you."
             ]
         },
         "introduction_unknown_members": {
@@ -90,10 +104,18 @@
             "de": {
                 "single": "Textnachricht",
                 "many": "Textnachrichten"
+            }, 
+            "en": {
+                "single": "Text",
+                "many": "Texts"
             }
         },
         "audio": {
             "de": {
+                "single": "Audio",
+                "many": "Audios"
+            }, 
+            "en": {
                 "single": "Audio",
                 "many": "Audios"
             }
@@ -102,22 +124,38 @@
             "de": {
                 "single": "Dokument",
                 "many": "Dokumente"
+            }, 
+            "en": {
+                "single": "Document",
+                "many": "Documents"
             }
         },
         "photo": {
             "de": {
                 "single": "Foto",
                 "many": "Fotos"
+            }, 
+            "en": {
+                "single": "Photo",
+                "many": "Photos"
             }
         },
         "sticker": {
             "de": {
                 "single": "Sticker",
                 "many": "Sticker"
+            }, 
+            "en": {
+                "single": "Sticker",
+                "many": "Stickers"
             }
         },
         "video": {
             "de": {
+                "single": "Video",
+                "many": "Videos"
+            }, 
+            "en": {
                 "single": "Video",
                 "many": "Videos"
             }
@@ -126,118 +164,198 @@
             "de": {
                 "single": "Sprachnachricht",
                 "many": "Sprachnachrichten"
+            }, 
+            "en": {
+                "single": "Voice note",
+                "many": "Voice notes"
             }
         },
         "contact": {
             "de": {
                 "single": "Kontakt",
                 "many": "Kontakte"
+            }, 
+            "en": {
+                "single": "Contact",
+                "many": "Contacts"
             }
         },
         "location": {
             "de": {
                 "single": "Standort",
                 "many": "Standorte"
+            }, 
+            "en": {
+                "single": "Location",
+                "many": "Locations"
             }
         },
         "new_chat_members": {
             "de": {
                 "single": "Neues Chatmitglied",
                 "many": "Neue Chatmitglieder"
+            }, 
+            "en": {
+                "single": "New chat member",
+                "many": "New chat members"
             }
         },
         "left_chat_member": {
             "de": {
                 "single": "Entferntes/gegangenes Mitglied",
                 "many": "Entfernte/gegangene Mitglieder"
+            }, 
+            "en": {
+                "single": "Removed/left member",
+                "many": "Removed/left members"
             }
         },
         "new_chat_title": {
             "de": {
                 "single": "Neuer Chatname",
                 "many": "Neue Chatnamen"
+            }, 
+            "en": {
+                "single": "New chat title",
+                "many": "New chat titles"
             }
         },
         "new_chat_photo": {
             "de": {
                 "single": "Neues Chatbild",
                 "many": "Neue Chatbilder"
+            }, 
+            "en": {
+                "single": "New chat photo",
+                "many": "New chat photos"
             }
         },
         "delete_chat_photo": {
             "de": {
                 "single": "Gelöschtes Chatbild",
                 "many": "Gelöschte Chatbilder"
+            }, 
+            "en": {
+                "single": "Deleted chat photo",
+                "many": "Deleted chat photos"
             }
         },
         "group_chat_created": {
             "de": {
                 "single": "Gruppenchat erstellt",
                 "many": "Gruppenchats erstellt"
+            }, 
+            "en": {
+                "single": "Group chat created",
+                "many": "Group chats created"
             }
         },
         "game": {
             "de": {
                 "single": "Nachricht aus Spielen",
                 "many": "Nachrichten aus Spielen"
+            }, 
+            "en": {
+                "single": "Message from games",
+                "many": "Messages from games"
             }
         },
         "pinned_message": {
             "de": {
                 "single": "Angepinnte Nachricht",
                 "many": "Angepinnte Nachrichten"
+            }, 
+            "en": {
+                "single": "Pinned message",
+                "many": "Pinnes messages"
             }
         },
         "poll": {
             "de": {
                 "single": "Umfrage",
                 "many": "Umfragen"
+            }, 
+            "en": {
+                "single": "Poll",
+                "many": "Polls"
             }
         },
         "migrate_from_chat_id": {
             "de": {
                 "single": "Migrierung aus einem Chat",
                 "many": "Migrierungen aus einem Chat"
+            }, 
+            "en": {
+                "single": "Migration from a chat",
+                "many": "Migrations from a chat"
             }
         },
         "migrate_to_chat_id": {
             "de": {
                 "single": "Migrierung in einen Chat",
                 "many": "Migrierungen in einen Chat"
+            }, 
+            "en": {
+                "single": "Migration in a chat",
+                "many": "Migrations in a chat"
             }
         },
         "channel_chat_created": {
             "de": {
                 "single": "Kanal erstellt",
                 "many": "Kanäle erstellt"
+            }, 
+            "en": {
+                "single": "Channel created",
+                "many": "Channels created"
             }
         },
         "supergroup_chat_created": {
             "de": {
                 "single": "Supergroup erstellt",
                 "many": "Supergroups erstellt"
+            }, 
+            "en": {
+                "single": "Supergroup created",
+                "many": "Supergroups created"
             }
         },
         "successfull_payment": {
             "de": {
                 "single": "Erfolgreicher Bezahlvorgang",
                 "many": "Erfolgreiche Bezahlvorgänge"
+            }, 
+            "en": {
+                "single": "Successfull payment",
+                "many": "Successfull payments"
             }
         },
         "invoice": {
             "de": {
                 "single": "Rechnung",
                 "many": "Rechnungen"
+            }, 
+            "en": {
+                "single": "Invoice",
+                "many": "Invoices"
             }
         },
         "video_note": {
             "de": {
                 "single": "Videonotiz",
                 "many": "Videonotizen"
+            }, 
+            "en": {
+                "single": "Video note",
+                "many": "Video notes"
             }
         },
         "gif": {
             "de": {
+                "single": "Gif",
+                "many": "Gifs"
+            }, 
+            "en": {
                 "single": "Gif",
                 "many": "Gifs"
             }
