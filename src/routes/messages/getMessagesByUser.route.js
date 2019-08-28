@@ -1,4 +1,4 @@
-import { getMessagesByUser } from "../../controllers/message.controller";
+import { get_messages_by_user } from "../../controllers/message.controller";
 
 export default function getMessagesByUserRoute(req, res) {
     let chatId = parseInt(req.params.chatId);
@@ -8,7 +8,7 @@ export default function getMessagesByUserRoute(req, res) {
         res.status(400).send("chatId parameter must be an integer");
     }
 
-    getMessagesByUser(chatId, extended)
+    get_messages_by_user(chatId, extended)
         .then((result) => {
             let total_messages = result.map(x => x.count).reduce((sum, value) => sum + value);
 

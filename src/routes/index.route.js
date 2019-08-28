@@ -4,7 +4,7 @@ import express from "express";
 // Import message routes
 import getMessageTotalRoute from "./messages/getMessageTotal.route";
 import getMessagesByUserRoute from "./messages/getMessagesByUser.route";
-import getWordCountRoute from "./messages/getAverageWordsRoute";
+import getWordCountRoute from "./messages/getWordCountRoute";
 import getMessagesByWeekdayRoute from "./messages/getMessagesByWeekday.route";
 import getMessagesByHourRoute from "./messages/getMessagesByHour.route";
 import postMessageRoute from "./messages/postMessage.route";

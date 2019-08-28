@@ -3,7 +3,7 @@
         "total_messages": {
             "de": [
                 "Seit ich hier bin wurden insgesamt `p[total_messages]` Nachrichten geschrieben."
-            ], 
+            ],
             "en": [
                 "Since I'm here, `p[total_messages] messages have been sent in total.`"
             ]
@@ -11,7 +11,7 @@
         "total_messages_extended": {
             "de": [
                 "Seit ich hier bin wurden insgesamt `p[total_messages]` Nachrichten geschrieben. Darunter waren"
-            ], 
+            ],
             "en": [
                 "Since I'm here, `p[total_messages] messages have been sent in total. These include`"
             ]
@@ -118,7 +118,7 @@
             ]
         },
         "group_chat_data": {
-            "de":[
+            "de": [
                 "Dies ist ein Gruppenchat.",
                 "· ID: `p[id]`",
                 "· Name: `p[title]`",
@@ -126,12 +126,17 @@
             ]
         },
         "private_chat_data": {
-            "de":[
+            "de": [
                 "Dies ist ein privater Chat",
                 "· ID: `p[id]`",
                 "· Vorname: `p[first_name]`",
                 "· Nachname: `p[last_name]`",
                 "· Nutzername: `p[username]`"
+            ]
+        },
+        "word_count": {
+            "de": [
+                "Insgesamt wurde in diesem chat schon `p[total_words]` Worte geschrieben. Das sind durchschnittlich `p[avgPerMessage]` pro Nachricht."
             ]
         }
     },
@@ -140,7 +145,7 @@
             "de": {
                 "single": "Textnachricht",
                 "many": "Textnachrichten"
-            }, 
+            },
             "en": {
                 "single": "Text",
                 "many": "Texts"
@@ -150,7 +155,7 @@
             "de": {
                 "single": "Audio",
                 "many": "Audios"
-            }, 
+            },
             "en": {
                 "single": "Audio",
                 "many": "Audios"
@@ -160,7 +165,7 @@
             "de": {
                 "single": "Dokument",
                 "many": "Dokumente"
-            }, 
+            },
             "en": {
                 "single": "Document",
                 "many": "Documents"
@@ -170,7 +175,7 @@
             "de": {
                 "single": "Foto",
                 "many": "Fotos"
-            }, 
+            },
             "en": {
                 "single": "Photo",
                 "many": "Photos"
@@ -180,7 +185,7 @@
             "de": {
                 "single": "Sticker",
                 "many": "Sticker"
-            }, 
+            },
             "en": {
                 "single": "Sticker",
                 "many": "Stickers"
@@ -190,7 +195,7 @@
             "de": {
                 "single": "Video",
                 "many": "Videos"
-            }, 
+            },
             "en": {
                 "single": "Video",
                 "many": "Videos"
@@ -200,7 +205,7 @@
             "de": {
                 "single": "Sprachnachricht",
                 "many": "Sprachnachrichten"
-            }, 
+            },
             "en": {
                 "single": "Voice note",
                 "many": "Voice notes"
@@ -210,7 +215,7 @@
             "de": {
                 "single": "Kontakt",
                 "many": "Kontakte"
-            }, 
+            },
             "en": {
                 "single": "Contact",
                 "many": "Contacts"
@@ -220,7 +225,7 @@
             "de": {
                 "single": "Standort",
                 "many": "Standorte"
-            }, 
+            },
             "en": {
                 "single": "Location",
                 "many": "Locations"
@@ -230,7 +235,7 @@
             "de": {
                 "single": "Neues Chatmitglied",
                 "many": "Neue Chatmitglieder"
-            }, 
+            },
             "en": {
                 "single": "New chat member",
                 "many": "New chat members"
@@ -240,7 +245,7 @@
             "de": {
                 "single": "Entferntes/gegangenes Mitglied",
                 "many": "Entfernte/gegangene Mitglieder"
-            }, 
+            },
             "en": {
                 "single": "Removed/left member",
                 "many": "Removed/left members"
@@ -250,7 +255,7 @@
             "de": {
                 "single": "Neuer Chatname",
                 "many": "Neue Chatnamen"
-            }, 
+            },
             "en": {
                 "single": "New chat title",
                 "many": "New chat titles"
@@ -260,7 +265,7 @@
             "de": {
                 "single": "Neues Chatbild",
                 "many": "Neue Chatbilder"
-            }, 
+            },
             "en": {
                 "single": "New chat photo",
                 "many": "New chat photos"
@@ -270,7 +275,7 @@
             "de": {
                 "single": "Gelöschtes Chatbild",
                 "many": "Gelöschte Chatbilder"
-            }, 
+            },
             "en": {
                 "single": "Deleted chat photo",
                 "many": "Deleted chat photos"
@@ -280,7 +285,7 @@
             "de": {
                 "single": "Gruppenchat erstellt",
                 "many": "Gruppenchats erstellt"
-            }, 
+            },
             "en": {
                 "single": "Group chat created",
                 "many": "Group chats created"
@@ -290,7 +295,7 @@
             "de": {
                 "single": "Nachricht aus Spielen",
                 "many": "Nachrichten aus Spielen"
-            }, 
+            },
             "en": {
                 "single": "Message from games",
                 "many": "Messages from games"
@@ -300,7 +305,7 @@
             "de": {
                 "single": "Angepinnte Nachricht",
                 "many": "Angepinnte Nachrichten"
-            }, 
+            },
             "en": {
                 "single": "Pinned message",
                 "many": "Pinnes messages"
@@ -310,7 +315,7 @@
             "de": {
                 "single": "Umfrage",
                 "many": "Umfragen"
-            }, 
+            },
             "en": {
                 "single": "Poll",
                 "many": "Polls"
@@ -320,7 +325,7 @@
             "de": {
                 "single": "Migrierung aus einem Chat",
                 "many": "Migrierungen aus einem Chat"
-            }, 
+            },
             "en": {
                 "single": "Migration from a chat",
                 "many": "Migrations from a chat"
@@ -330,7 +335,7 @@
             "de": {
                 "single": "Migrierung in einen Chat",
                 "many": "Migrierungen in einen Chat"
-            }, 
+            },
             "en": {
                 "single": "Migration in a chat",
                 "many": "Migrations in a chat"
@@ -340,7 +345,7 @@
             "de": {
                 "single": "Kanal erstellt",
                 "many": "Kanäle erstellt"
-            }, 
+            },
             "en": {
                 "single": "Channel created",
                 "many": "Channels created"
@@ -350,7 +355,7 @@
             "de": {
                 "single": "Supergroup erstellt",
                 "many": "Supergroups erstellt"
-            }, 
+            },
             "en": {
                 "single": "Supergroup created",
                 "many": "Supergroups created"
@@ -360,7 +365,7 @@
             "de": {
                 "single": "Erfolgreicher Bezahlvorgang",
                 "many": "Erfolgreiche Bezahlvorgänge"
-            }, 
+            },
             "en": {
                 "single": "Successfull payment",
                 "many": "Successfull payments"
@@ -370,7 +375,7 @@
             "de": {
                 "single": "Rechnung",
                 "many": "Rechnungen"
-            }, 
+            },
             "en": {
                 "single": "Invoice",
                 "many": "Invoices"
@@ -380,7 +385,7 @@
             "de": {
                 "single": "Videonotiz",
                 "many": "Videonotizen"
-            }, 
+            },
             "en": {
                 "single": "Video note",
                 "many": "Video notes"
@@ -390,7 +395,7 @@
             "de": {
                 "single": "Gif",
                 "many": "Gifs"
-            }, 
+            },
             "en": {
                 "single": "Gif",
                 "many": "Gifs"

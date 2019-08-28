@@ -1,179 +1,97 @@
 import config from "../../config.json";
-import Message from "../models/schemas/message.schema";
-import StatBotUser from "../models/schemas/statBotUser.schema";
-import Chat from "../models/schemas/chat.schema";
+import all_texts from "../databaseAccess/getAllTexts.db";
+import consent_level from "../databaseAccess/getConsentLevel.db";
+import messages_by_hour from "../databaseAccess/getMessagesByHour.db";
+import messages_by_user from "../databaseAccess/getMessagesByUser.db";
+import messages_by_weekday from "../databaseAccess/getMessagesByWeekday.db";
+import { message_total, message_total_extended } from "../databaseAccess/getMessageTotal.db";
+import save_message from "../databaseAccess/postMessage.db";
+import upsert_chat from "../databaseAccess/upsertChat.db";
+import upsert_user from "../databaseAccess/upsertUser.db";
 
-export async function getMessageTotal(chat_id, extended) {
-    if (extended) {
-        return new Promise((resolve, reject) => {
-            Message.aggregate([{
-                $match: { "chat.id": chat_id }
-            },
-            {
-                $group: {
-                    _id: "$message_type",
-                    count: { $sum: 1 }
-                }
-            },
-            {
-                $sort: { "count": -1 }
-            },
-            {
-                $project: {
-                    "_id": 0,
-                    "type": "$_id",
-                    "count": 1
-                }
-            }
-            ])
-                .then(result => resolve(result))
-                .catch(err => reject(err));
+
+export async function get_message_total(chat_id) {
+    return await message_total(chat_id);
+}
+
+export async function get_message_total_extended(chat_id) {
+    return await message_total_extended(chat_id);
+}
+
+export async function get_messages_by_user(chat_id) {
+    return await messages_by_user(chat_id);
+}
+
+export async function get_messages_by_user_extended(chat_id) {
+    console.log(`Get messages by user extended for ${chat_id} not implemented`);
+    // TODO: implement extended function
+}
+
+export async function get_messages_by_weekday(chat_id) {
+    try {
+        let messagesByWeekday = await messages_by_weekday(chat_id);
+
+        return messagesByWeekday.map(x => {
+            return {
+                weekday: {
+                    numeric: x._id.weekday - 1,
+                    readable: ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"][x._id.weekday - 1]
+                },
+                count: x.count
+            };
         });
-    } else {
-        return new Promise((resolve, reject) => {
-            Message.find({
-                "chat.id": chat_id
-            }).countDocuments((err, result) => {
-                if (err) reject(err);
-                else resolve(result);
-            });
-        });
+    } catch (error) {
+        throw new Error(error);
     }
 }
 
-// TODO: use param to returne extended stats
-// eslint-disable-next-line no-unused-vars
-export async function getMessagesByUser(chat_id, extended) {
-    return new Promise((resolve, reject) => {
-        Message.aggregate([{ $match: { "chat.id": chat_id } },
-            {
-                $group: {
-                    "_id": "$from",
-                    "count": { $sum: 1 }
-                }
-            },
-            {
-                $sort: { "count": -1 }
-            }
-        ], (err, result) => {
-            if (err) reject(err);
-            else resolve(result);
+export async function get_messages_by_hour(chat_id) {
+    try {
+        let db_result = await messages_by_hour(chat_id);
+        let return_value = db_result.map(x => {
+            return {
+                hour: x._id.hour,
+                count: x.count
+            };
         });
-    });
+
+        return return_value;
+    } catch (error) {
+        throw new Error(error);
+    }
 }
 
-export async function getMessagesByWeekday(chat_id) {
-    return new Promise((resolve, reject) => {
-        try {
-            let messagesByWeekday = (Message.aggregate([{ "$match": { "chat.id": chat_id } },
-                {
-                    "$group": {
-                        "_id": {
-                            "weekday": {
-                                "$dayOfWeek": {
-                                    "date": {
-                                        "$toDate": {
-                                            "$multiply": [1000, "$date"]
-                                        }
-                                    }
-                                }
-                            },
-                            "count": { "$sum": 1 }
-                        }
-                    }
-                }
-            ])).map(x => {
-                return {
-                    weekday: {
-                        numeric: x._id.weekday - 1,
-                        readable: ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"][x._id.weekday - 1]
-                    },
-                    count: x.count
-                };
-            });
+export async function get_word_count(chat_id) {
+    try {
+        let db_result = await all_texts(chat_id);
 
-            resolve(messagesByWeekday);
-        } catch (error) {
-            reject({
-                message: "Could not read messages per weekday from database",
-                error: error
-            });
-        }
-    });
+        let word_counts = db_result.map(x => x.text.split(" ").length);
+        let word_sum = word_counts.reduce((x, y) => x + y, 0);
+        let words_per_message = +(word_sum / db_result.length).toFixed(2);
+
+        return {
+            total: word_sum,
+            avgPerMessage: words_per_message
+        };
+    } catch (error) {
+        throw new Error(error);
+    }
 }
 
-export async function getMessagesByHour(chatId) {
-    return new Promise((resolve, reject) => {
-        try {
-            let messagesByHour = (Message.aggregate([{
-                "$match": { "chat": chatId }
-            }, {
-                "$group": {
-                    "_id": {
-                        hour: {
-                            "$hour": {
-                                "date": {
-                                    "$toDate": { "$multiply": [1000, "$date"] }
-                                },
-                                "timezone": Intl.DateTimeFormat().resolvedOptions().timeZone
-                            }
-                        }
-                    },
-                    "count": { "$sum": 1 }
-                }
-            }, {
-                "$sort": {
-                    "_id.hour": 1
-                }
-            }])).map(x => {
-                return {
-                    hour: x._id.hour,
-                    count: x.count
-                };
-            });
+export async function post_message(message, metadata) {
+    try {
+        message.message_type = metadata.type === "document" ? (message.animation ? "gif" : "document") : metadata.type;
 
-            resolve(messagesByHour);
-        } catch (error) {
-            reject({
-                message: "Could not read messages per hour from database",
-                error: error
-            });
-        }
-    });
-}
+        let save = true;
 
-export async function getWordCount(chatId) {
-    return new Promise((resolve, reject) => {
-        getAllTexts(chatId)
-            .then((result) => {
-                let wordCounts = result.map(x => x.text.split(" ").length);
-                let wordSum = wordCounts.reduce((x, y) => x + y, 0);
-                let average = +(wordSum / result.length).toFixed(2);
+        if (config.blacklist && config.blacklist.includes(message.chat.id)) save = false;
+        if (config.whitelist && !config.whitelist.includes(message.chat.id)) save = false;
 
-                resolve({
-                    total: wordSum,
-                    avgPerMessage: average
-                });
-            })
-            .catch((error) => reject(error));
-    });
-}
+        if (save) {
+            let consent = await consent_level(message.from).data_collection_consent;
 
-export async function postMessage(message, metadata) {
-    message.message_type = metadata.type === "document" ? (message.animation ? "gif" : "document") : metadata.type;
-
-    let save = true;
-
-    if (config.blacklist && config.blacklist.includes(message.chat.id)) save = false;
-    if (config.whitelist && !config.whitelist.includes(message.chat.id)) save = false;
-
-    if (save) {
-        getConsentLevel(message.from).then(result => {
-            let consent_level = result.data_collection_consent;
-
-            if (consent_level !== "deny") {
-
-                upsertMissingDocuments(message);
+            if (consent !== "deny") {
+                await upsert_missing_documents(message);
                 let preparedMessage = prepareMessageForDb(message, consent_level);
 
                 console.log();
@@ -182,36 +100,12 @@ export async function postMessage(message, metadata) {
                 console.log("Received message from bot:");
                 console.log(preparedMessage);
 
-                let messageSchema = new Message(preparedMessage);
-                messageSchema.save(function(err) {
-                    if (err) return console.error(err);
-                });
+                await save_message(message);
             }
-        });
+        }
+    } catch (error) {
+        throw new Error(error);
     }
-}
-
-async function getAllTexts(chatId) {
-    return new Promise((resolve, reject) => {
-        Message.find({
-            "chat": chatId,
-            "text": { "$exists": true }
-        }, {
-            "text": 1,
-            "_id": 0
-        }, (err, result) => {
-            if (err) reject(err);
-            else(resolve(result));
-        });
-    });
-}
-
-async function getConsentLevel(user) {
-    return new Promise((resolve, reject) => {
-        StatBotUser.findOne({ "id": user.id }).select({ "data_collection_consent": 1, "_id": 0 })
-            .then(result => resolve(result))
-            .catch(err => reject(err));
-    });
 }
 
 function prepareMessageForDb(message, consent_level) {
@@ -290,38 +184,10 @@ function prepareMessageForDb(message, consent_level) {
     return preparedMessage;
 }
 
-function upsertMissingDocuments(message) {
-    if (message.chat) upsertChat(message.chat);
-    if (message.forward_from_chat) upsertChat(message.forward_from_chat);
+async function upsert_missing_documents(message) {
+    if (message.chat) upsert_chat(message.chat);
+    if (message.forward_from_chat) upsert_chat(message.forward_from_chat);
 
-    if (message.from) upsertUser(message.from);
-    if (message.new_chat_members) message.new_chat_members.forEach(x => upsertUser(x));
-}
-
-function upsertUser(user) {
-    let query = {
-        "id": user.id
-    };
-
-    StatBotUser.findOneAndUpdate(query, user, {
-        upsert: true,
-        useFindAndModify: false,
-        setDefaultsOnInsert: true
-    }, function(err) {
-        if (err) return console.error(err);
-    });
-}
-
-function upsertChat(chat) {
-    let query = {
-        "id": chat.id
-    };
-
-    Chat.findOneAndUpdate(query, chat, {
-        upsert: true,
-        useFindAndModify: false,
-        setDefaultsOnInsert: true
-    }, function(err) {
-        if (err) return console.error(err);
-    });
+    if (message.from) await upsert_user(message.from);
+    if (message.new_chat_members) message.new_chat_members.forEach(async user => await upsert_user(user));
 }
