@@ -20,6 +20,7 @@
         "inquirer": "^6.5.1",
         "mongoose": "^5.6.6",
         "node-telegram-bot-api": "^0.30.0",
+        "npm": "^6.11.2",
         "request-promise": "^4.2.4"
     },
     "devDependencies": {

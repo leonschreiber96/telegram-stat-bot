@@ -1,4 +1,4 @@
-import { get_message_total } from "../../controllers/message.controller";
+import { get_message_total, get_message_total_extended } from "../../controllers/message.controller";
 
 export default function getMessageTotalRoute(req, res) {
     let chatId = parseInt(req.params.chatId);
@@ -8,7 +8,9 @@ export default function getMessageTotalRoute(req, res) {
         res.status(400).send("chatId parameter must be an integer");
     }
 
-    get_message_total(chatId, extended)
+    let handler = extended ? get_message_total_extended : get_message_total;
+
+    handler(chatId)
         .then((result) => res.status(200).json({
             result: result
         }))

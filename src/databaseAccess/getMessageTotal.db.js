@@ -9,17 +9,15 @@ export async function message_total(chat_id) {
 }
 
 export async function message_total_extended(chat_id) {
-    let query = [{ match: { "chat.id": chat_id } },
+    let query = [{ $match: { "chat.id": chat_id } },
         {
             $group: {
                 _id: "$message.type",
                 count: { $sum: 1 }
             }
-        },
-        {
+        }, {
             $sort: { count: -1 }
-        },
-        {
+        }, {
             $project: {
                 _id: 0,
                 type: "$_id",

@@ -13,6 +13,7 @@ export default function total_messages_extended(message, stat_bot) {
         uri: `http://localhost:${stat_bot.backend_port}/messages/total/${chat}?extended=true`,
         json: true
     }).then((response) => {
+        console.log(response);
         let total_messages_grouped = response.result;
         let total_messages = total_messages_grouped.reduce((a, b) => a + (b.count || 0), 0);
         let max_digits = Math.max(...total_messages_grouped.map(x => x.count.toString().length));

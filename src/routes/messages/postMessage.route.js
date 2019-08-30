@@ -1,4 +1,4 @@
-import { postMessage } from "../../controllers/message.controller";
+import { post_message } from "../../controllers/message.controller";
 
 export default function postMessageRoute(req, res) {
     let contentData = [];
@@ -11,7 +11,7 @@ export default function postMessageRoute(req, res) {
         let message = content.message;
         let metadata = content.metadata;
 
-        postMessage(message, metadata)
+        post_message(message, metadata)
             .catch((error) => {
                 console.error(error);
                 res.status(500).send(error);
