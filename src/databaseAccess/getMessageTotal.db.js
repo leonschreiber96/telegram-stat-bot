@@ -12,7 +12,7 @@ export async function message_total_extended(chat_id) {
     let query = [{ $match: { "chat.id": chat_id } },
         {
             $group: {
-                _id: "$message.type",
+                _id: "$message_type",
                 count: { $sum: 1 }
             }
         }, {

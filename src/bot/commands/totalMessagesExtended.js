@@ -5,14 +5,16 @@ import request from "request-promise";
 import TextMessage from "../messages/textMessage";
 import { getMessageTypeTranslation } from "../translate";
 
-export default function total_messages_extended(message, stat_bot) {
+export default async function total_messages_extended(message, stat_bot) {
     let chat = message.chat.id;
     let log = ["/total_messages_extended"];
 
-    request({
-        uri: `http://localhost:${stat_bot.backend_port}/messages/total/${chat}?extended=true`,
-        json: true
-    }).then((response) => {
+    try {
+        let response = await request({
+            uri: `http://localhost:${stat_bot.backend_port}/messages/total/${chat}?extended=true`,
+            json: true
+        });
+
         console.log(response);
         let total_messages_grouped = response.result;
         let total_messages = total_messages_grouped.reduce((a, b) => a + (b.count || 0), 0);
@@ -31,5 +33,7 @@ export default function total_messages_extended(message, stat_bot) {
 
         reply.send();
 
-    }).catch((err) => console.log(err));
+    } catch (err) {
+        console.log(err);
+    }
 }

@@ -4,22 +4,23 @@ import request from "request-promise";
 // Import internal packages
 import TextMessage from "../messages/textMessage";
 
-export default function messages_per_user(message, stat_bot) {
+export default async function messages_per_user(message, stat_bot) {
     let log = [`/messages_per_user || http://localhost:${stat_bot.backend_port}/messages/byuser/${message.chat.id}`];
+    try {
+        let response = await request({
+            uri: `http://localhost:${stat_bot.backend_port}/messages/byuser/${message.chat.id}`,
+            json: true
+        });
 
-    request({
-        uri: `http://localhost:${stat_bot.backend_port}/messages/byuser/${message.chat.id}`,
-        json: true
-    }).then((response) => {
         let messages_per_user = response.result;
 
         log.push(messages_per_user);
         stat_bot.log(log);
 
         reply(stat_bot, message, messages_per_user);
-    }).catch((err) =>
-        console.log(err)
-    );
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 function reply(stat_bot, message, messages_per_user) {
@@ -39,7 +40,7 @@ function reply(stat_bot, message, messages_per_user) {
     };
 
     reply.add_line_translated("messages_per_user");
-    
+
     reply.add_chart(chart_data);
 
     messages_per_user.forEach((x) => {

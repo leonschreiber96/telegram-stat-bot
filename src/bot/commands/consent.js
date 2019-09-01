@@ -4,19 +4,21 @@ import request from "request-promise";
 // Import internal packages
 import TextMessage from "../messages/textMessage";
 
-export default function consent(message, consent_level, stat_bot) {
+export default async function consent(message, consent_level, stat_bot) {
     let chat = message.chat.id;
 
-    request({
-        method: "PUT",
-        uri: `http://localhost:${stat_bot.backend_port}/users`,
-        json: true,
-        body: {
-            ...message.from,
-            data_collection_consent: consent_level
-        },
-        contentType: "application/json"
-    }).then((response) => {
+    try {
+        let response = await request({
+            method: "PUT",
+            uri: `http://localhost:${stat_bot.backend_port}/users`,
+            json: true,
+            body: {
+                ...message.from,
+                data_collection_consent: consent_level
+            },
+            contentType: "application/json"
+        });
+
         let reply = new TextMessage(stat_bot.bot, chat, "de", "Markdown");
 
         reply.add_line_translated("confirm_consent_update", {
@@ -26,7 +28,7 @@ export default function consent(message, consent_level, stat_bot) {
         });
 
         reply.send();
-    }).catch(error => {
+    } catch (error) {
         console.error(error.message);
 
         if (error.statusCode === 422) {
@@ -36,5 +38,5 @@ export default function consent(message, consent_level, stat_bot) {
 
             reply.send();
         }
-    });
+    }
 }

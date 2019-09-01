@@ -1,10 +1,10 @@
 // Import external packages
 import request from "request-promise";
 
-export default function on_message(message, metadata, stat_bot) {
+export default async function on_message(message, metadata, stat_bot) {
     console.log(message);
     try {
-        request({
+        await request({
             method: "POST",
             uri: `http://localhost:${stat_bot.backend_port}/messages`,
             json: true,

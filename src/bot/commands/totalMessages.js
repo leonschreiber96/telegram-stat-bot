@@ -4,14 +4,16 @@ import request from "request-promise";
 // Import internal packages
 import TextMessage from "../messages/textMessage";
 
-export default function total_messages(message, stat_bot) {
+export default async function total_messages(message, stat_bot) {
     let chat = message.chat.id;
     let log = ["/total_messages"];
 
-    request({
-        uri: `http://localhost:${stat_bot.backend_port}/messages/total/${chat}`,
-        json: true
-    }).then((response) => {
+    try {
+        let response = await request({
+            uri: `http://localhost:${stat_bot.backend_port}/messages/total/${chat}`,
+            json: true
+        });
+
         let total_messages = response.result;
 
         log.push(total_messages);
@@ -23,5 +25,7 @@ export default function total_messages(message, stat_bot) {
 
         reply.send();
 
-    }).catch((err) => console.log(err));
+    } catch (err) {
+        console.log(err);
+    }
 }
