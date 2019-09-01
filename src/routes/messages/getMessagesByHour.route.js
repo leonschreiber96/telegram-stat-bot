@@ -1,20 +1,20 @@
 import { getMessagesByHour } from "../../controllers/message.controller";
 
-export default function getMessagesByHourRoute(req, res) {
-    let chatId = parseInt(req.params.chatId);
+export default async function get_messages_by_hour_route(req, res) {
+    let chat_id = parseInt(req.params.chatId);
 
-    if (isNaN(chatId)) {
+    if (isNaN(chat_id)) {
         res.status(400).send("chatId parameter must be an integer");
     }
 
-    getMessagesByHour(chatId)
-        .then((result) => {
-            res.status(200).json({
-                result: result
-            });
-        })
-        .catch((error) => {
-            console.error(error);
-            res.status(500).send(error);
+    try {
+        let result = await getMessagesByHour(chat_id);
+
+        res.status(200).json({
+            result: result
         });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send(error);
+    }
 }

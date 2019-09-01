@@ -6,30 +6,17 @@ const OWNID = config.own_id;
 const LEFT = "left";
 const JOINED = "joined";
 
-export async function getMembershipEvents(chatId) {
-    return new Promise((resolve, reject) => {
-        let relevantMessages;
-
-        try {
-            relevantMessages = Message.find({
-                "$and": [{
-                    "$or": [{
-                        "new_chat_members": OWNID
-                    }, {
-                        "left_chat_member": OWNID
-                    }]
-                },
-                { "chat": chatId }
-                ]
-            }).sort({
-                date: 1
-            });
-        } catch (error) {
-            reject({
-                message: "Could not read invitation and exit events from database",
-                error: error
-            });
-        }
+// TODO: put database access in db function in separate file
+export async function get_membership_events(chatId) {
+    try {
+        let relevantMessages = await Message.find({
+            $and: [
+                { $or: [{ new_chat_members: OWNID }, { left_chat_member: OWNID }] },
+                { chat: chatId }
+            ]
+        }).sort({
+            date: 1
+        });
 
         let relevantEvents = relevantMessages.map(x => {
             return {
@@ -38,6 +25,8 @@ export async function getMembershipEvents(chatId) {
             };
         });
 
-        resolve(relevantEvents);
-    });
+        return relevantEvents;
+    } catch (error) {
+        throw new Error(error);
+    }
 }

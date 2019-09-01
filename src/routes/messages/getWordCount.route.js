@@ -1,6 +1,6 @@
 import { get_word_count } from "../../controllers/message.controller";
 
-export default async function getWordCountRoute(req, res) {
+export default async function get_word_count_route(req, res) {
     let chatId = parseInt(req.params.chatId);
 
     if (isNaN(chatId)) {

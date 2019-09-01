@@ -1,19 +1,18 @@
-import { getUser } from "../../controllers/user.controller";
+import { get_user } from "../../controllers/user.controller";
 
-export default function getUserRoute(req, res) {
-    let userId = parseInt(req.params.id);
+export default async function get_user_route(req, res) {
+    let user_id = parseInt(req.params.id);
 
-    if (isNaN(userId)) {
+    if (isNaN(user_id)) {
         res.status(400).send("id parameter must be an integer");
     }
-
-    getUser(userId)
-        .then((result) => {
-            res.status(200).json({
-                result: result
-            });
-        }).catch((error) => {
-            console.error(error);
-            res.status(500).send(error);
+    try {
+        let result = await get_user(user_id);
+        res.status(200).json({
+            result: result
         });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send(error);
+    }
 }

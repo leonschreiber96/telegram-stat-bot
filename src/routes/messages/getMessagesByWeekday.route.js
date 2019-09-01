@@ -1,6 +1,6 @@
 import { get_messages_by_weekday } from "../../controllers/message.controller";
 
-export default async function getMessagesByWeekdayRoute(req, res) {
+export default async function get_messages_by_weekday_route(req, res) {
     let chat_id = parseInt(req.params.chatId);
 
     if (isNaN(chat_id)) {

@@ -10,7 +10,7 @@ import config from "../../../config.json";
 export default async function on_new_chat_members(message, stat_bot) {
     if (message.new_chat_members.some(x => x.id == stat_bot.own_id)) {
         self_enter_chat(message, stat_bot);
-    } else if (message.new_chat_members.some(x => x.is_bot)) {
+    } else if (message.new_chat_members.some(x => !x.is_bot)) {
         await user_enter_chat(message, stat_bot);
     }
 }

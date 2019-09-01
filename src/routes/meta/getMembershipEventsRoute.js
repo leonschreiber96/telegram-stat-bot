@@ -1,19 +1,20 @@
-import { getMembershipEvents } from "../../controllers/metadata.controller";
+import { get_membership_events } from "../../controllers/metadata.controller";
 
-export default function getMembershipEventsRoute(req, res) {
-    let chatId = parseInt(req.params.chatId);
+export default async function get_membership_events_route(req, res) {
+    let chat_id = parseInt(req.params.chatId);
 
-    if (isNaN(chatId)) {
+    if (isNaN(chat_id)) {
         res.status(400).send("chatId parameter must be an integer");
     }
 
-    getMembershipEvents(chatId)
-        .then((result) => {
-            res.status(200).json({
-                result: result
-            });
-        }).catch((error) => {
-            console.error(error);
-            res.status(500).send(error);
+    try {
+        let result = await get_membership_events(chat_id)
+
+        res.status(200).json({
+            result: result
         });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send(error);
+    }
 }

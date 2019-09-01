@@ -1,21 +1,21 @@
 import { get_message_total, get_message_total_extended } from "../../controllers/message.controller";
 
-export default function getMessageTotalRoute(req, res) {
-    let chatId = parseInt(req.params.chatId);
+export default async function get_message_total_route(req, res) {
+    let chat_id = parseInt(req.params.chatId);
     let extended = req.query.extended === "true";
 
-    if (isNaN(chatId)) {
+    if (isNaN(chat_id)) {
         res.status(400).send("chatId parameter must be an integer");
     }
 
     let handler = extended ? get_message_total_extended : get_message_total;
-
-    handler(chatId)
-        .then((result) => res.status(200).json({
+    try {
+        let result = await handler(chat_id);
+        res.status(200).json({
             result: result
-        }))
-        .catch((error) => {
-            console.error(error);
-            res.status(500).send(error);
         });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send(error);
+    }
 }
