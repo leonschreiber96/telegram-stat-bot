@@ -5,17 +5,9 @@ export default async function messages_by_weekday(chat_id) {
         {
             $group: {
                 _id: {
-                    weekday: {
-                        $dayOfWeek: {
-                            date: {
-                                $toDate: {
-                                    $multiply: [1000, "$date"]
-                                }
-                            }
-                        }
-                    },
-                    count: { "$sum": 1 }
-                }
+                    weekday: { $dayOfWeek: "$date" },
+                },
+                count: { $sum: 1 }
             }
         }
     ];

@@ -1,20 +1,20 @@
-import { getMessagesByWeekday } from "../../controllers/message.controller";
+import { get_messages_by_weekday } from "../../controllers/message.controller";
 
-export default function getMessagesByWeekdayRoute(req, res) {
-    let chatId = parseInt(req.params.chatId);
+export default async function getMessagesByWeekdayRoute(req, res) {
+    let chat_id = parseInt(req.params.chatId);
 
-    if (isNaN(chatId)) {
+    if (isNaN(chat_id)) {
         res.status(400).send("chatId parameter must be an integer");
     }
 
-    getMessagesByWeekday(chatId)
-        .then((result) => {
-            res.status(200).json({
-                result: result
-            });
-        })
-        .catch((error) => {
-            console.error(error);
-            res.status(500).send(error);
+    try {
+        let result = await get_messages_by_weekday(chat_id);
+
+        res.status(200).json({
+            result: result
         });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send(error);
+    }
 }

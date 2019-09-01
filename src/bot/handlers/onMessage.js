@@ -2,7 +2,6 @@
 import request from "request-promise";
 
 export default async function on_message(message, metadata, stat_bot) {
-    console.log(message);
     try {
         await request({
             method: "POST",

@@ -21,7 +21,7 @@ import User from "../entities/user";
 let Message = {
     message_id: { type: Number, required: true, unique: true },
     chat: { type: Chat, required: true },
-    date: { type: Number, required: true },
+    date: { type: Date, required: true },
     message_type: String,
     from: { type: User, required: false },
     forward_from: { type: User, required: false },

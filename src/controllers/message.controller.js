@@ -1,4 +1,5 @@
 import config from "../../config.json";
+import { get_raw_translation } from "../bot/translate";
 import all_texts from "../databaseAccess/getAllTexts.db";
 import consent_level from "../databaseAccess/getConsentLevel.db";
 import messages_by_hour from "../databaseAccess/getMessagesByHour.db";
@@ -31,11 +32,17 @@ export async function get_messages_by_weekday(chat_id) {
     try {
         let messagesByWeekday = await messages_by_weekday(chat_id);
 
+        let total_messages = messagesByWeekday.map(x => x.count).reduce((sum, value) => sum + value);
+
+        for (let i = 0; i < messagesByWeekday.length; i++) {
+            messagesByWeekday[i].percentage = +((messagesByWeekday[i].count / total_messages) * 100).toFixed(2);
+        }
+
         return messagesByWeekday.map(x => {
             return {
                 weekday: {
                     numeric: x._id.weekday - 1,
-                    readable: ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"][x._id.weekday - 1]
+                    readable: get_raw_translation("weekdays", config.language_default)[x._id.weekday - 1]
                 },
                 count: x.count
             };
@@ -100,7 +107,7 @@ export async function post_message(message, metadata) {
                 console.log("Received message from bot:");
                 console.log(preparedMessage);
 
-                await save_message(message);
+                await save_message(preparedMessage);
             }
         }
     } catch (error) {
@@ -114,6 +121,8 @@ function prepareMessageForDb(message, consent_level) {
     preparedMessage.chat.chat_type = message.chat.type;
     delete preparedMessage.chat.type;
 
+    // Convert the unix timestamp from the telegram message object to an actual date
+    if (message.date) preparedMessage.date = new Date(message.date * 1000);
     if (message.reply_to_message) preparedMessage.reply_to_message = message.reply_to_message.message_id;
 
     if (message.entities && message.entities.length === 0) delete preparedMessage.entities;

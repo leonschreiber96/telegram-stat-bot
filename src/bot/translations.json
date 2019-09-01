@@ -24,6 +24,14 @@
                 "Who writes how much in the group?"
             ]
         },
+        "messages_per_weekday": {
+            "de": [
+                "An welchem Wochentag wird am meisten geschrieben?"
+            ],
+            "en": [
+                "Which day of the week is the busiest?"
+            ]
+        },
         "introduction_group": {
             "de": [
                 "Schön, dass ich bei euch sein darf, p[group_name] 👍",
@@ -137,6 +145,26 @@
         "word_count": {
             "de": [
                 "Insgesamt wurde in diesem chat schon `p[total_words]` Worte geschrieben. Das sind durchschnittlich `p[avgPerMessage]` pro Nachricht."
+            ]
+        },
+        "weekdays": {
+            "de": [
+                "Sonntag",
+                "Montag",
+                "Dienstag",
+                "Mittwoch",
+                "Donnerstag",
+                "Freitag",
+                "Samstag"
+            ],
+            "en": [
+                "Sunday",
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday"
             ]
         }
     },

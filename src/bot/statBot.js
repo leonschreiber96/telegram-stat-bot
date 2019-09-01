@@ -4,6 +4,7 @@ import TelegramBot from "node-telegram-bot-api";
 // Import bot command and handler fundtions
 import chat_info from "./commands/chatInfo";
 import consent from "./commands/consent";
+import messages_per_weekday from "./commands/messagesPerWeekday";
 import messages_per_user from "./commands/messagesPerUser";
 import my_data from "./commands/myData";
 import on_message from "./handlers/onMessage";
@@ -42,6 +43,7 @@ export default class StatBot {
         this.bot.onText(this.command_regex("consent_restricted"), async message => await consent(message, "restricted", this));
         this.bot.onText(this.command_regex("consent_full"), async message => await consent(message, "full", this));
         this.bot.onText(this.command_regex("chat_info"), async message => await chat_info(message, this));
+        this.bot.onText(this.command_regex("messages_per_weekday"), async message => await messages_per_weekday(message, this));
         this.bot.onText(this.command_regex("messages_per_user"), async message => await messages_per_user(message, this));
         this.bot.onText(this.command_regex("my_data"), async message => await my_data(message, this));
         // TODO: special text in case there are zero messages yet (e.g. if nobody gave consent yet)

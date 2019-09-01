@@ -23,3 +23,7 @@ export function getBotReplyTranslation(key, lang, params) {
         return `Missing translation for ${lang}: ${key}`;
     }
 }
+
+export function get_raw_translation(key, lang, params) {
+    return translations.bot_replies[key] ? translations.bot_replies[key][lang] : undefined;
+}
