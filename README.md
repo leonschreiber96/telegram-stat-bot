@@ -32,13 +32,19 @@ Below is the structure of the config file including optional settings:
    
    **Telegram Bot Token**
    Your bot's Telegram API token. If you're unsure what your token is, you can retrieve it from BotFather. Format is `123456789:ABCd0EFgHIJKLm1_23noPQ45RSTUVW6XyZ7`.
+   
    **Own ID**
    The user ID of your bot. Corresponds to the 9 digits before the colon in your API token.
+   
    **Language default**
    The language your bot is going to speak when it enters a new group or encounters an unknown user. Language settings can later be personalized per group/user individually.
+   
    ***Port (optional)***
    The port under which the backend server with the databasewill be reachable for the bot. 
+   
    *If you omit this setting, a random free port will be chosen at every startup.*
+   
    ***Blacklist/Whitelist (optional)***
    You can choose to either maintain a blacklist (specify chats that will be ignored by the bot) or a whitelist (ignore all chats by default and specify chats from which messages should be saved).
+   
     *If you omit this setting, the bot will listen to all chats.* 
