@@ -4,6 +4,7 @@
     "description": "Backend server that accepts and processes requests from telegram-stat-bot",
     "main": "index.js",
     "scripts": {
+        "build": "node_modules/webpack/bin/webpack.js --progress --hide-modules ",
         "debug": "nodemon --inspect --watch src --exec node_modules/.bin/babel-node --presets env src/index.js",
         "dev": "node scripts/setupConfig.js && \"node_modules/.bin/nodemon\" src/index.js --exec \"node_modules/.bin/babel-node --\"",
         "start": "node scripts/setupConfig.js && \"node_modules/.bin/babel-node\" src/index.js"
