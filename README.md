@@ -45,6 +45,6 @@ Below is the structure of the config file including optional settings:
    *If you omit this setting, a random free port will be chosen at every startup.*
    
    ***Blacklist/Whitelist (optional)***
-   You can choose to either maintain a blacklist (specify chats that will be ignored by the bot) or a whitelist (ignore all chats by default and specify chats from which messages should be saved).
+   You can choose to either maintain a blacklist (specify chats that will be ignored by the bot) or a whitelist (ignore all chats by default and specify chats from which messages should be saved). 
    
-    *If you omit this setting, the bot will listen to all chats.* 
+   *If you omit this setting, the bot will listen to all chats.* 
