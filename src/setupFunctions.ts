@@ -10,7 +10,7 @@ import router from "./routes/index.route";
 import StatBot from "./bot/statBot";
 import config from "../config.json";
 
-export async function setup_database() {
+export async function setup_database(): Promise<any> {
     return new Promise((resolve) => {
         mongoose.connect("mongodb://localhost/statbottest", {
             useNewUrlParser: true,
@@ -29,14 +29,14 @@ export async function setup_database() {
             }
         });
 
-        db.once("open", function() {
+        db.once("open", function () {
             console.log(`${colors.green("✔")} connected to database`);
             resolve({ success: true });
         });
     });
 }
 
-export async function setup_backend() {
+export async function setup_backend(): Promise<any> {
     const port = config.port || await getPort();
 
     return new Promise(resolve => {
@@ -48,7 +48,7 @@ export async function setup_backend() {
         app.listen(port, () => {
             console.log(`${colors.green("✔")} server running on port ${port}`);
             resolve({ success: true, port: port });
-        }).on("error", error => {
+        }).on("error", (error: NodeJS.ErrnoException) => {
             if (error.code === "EADDRINUSE") {
                 console.log(`${colors.red("❌")}  Couldn't set up backend on port ${port}. Port already in use.`);
                 resolve({ success: false, port: port });
@@ -60,7 +60,7 @@ export async function setup_backend() {
     });
 }
 
-export async function setup_bot(backend_port) {
+export async function setup_bot(backend_port): Promise<any> {
     const stat_bot = new StatBot(config.telegram_bot_token, config.own_id, backend_port);
 
     try {

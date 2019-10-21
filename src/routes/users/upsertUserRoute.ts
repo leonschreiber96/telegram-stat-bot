@@ -1,14 +1,16 @@
 import { upsertUser } from "../../controllers/user.controller";
 
-export default function upsert_user_route(req, res) {
-    let contentData = [];
+export default async function upsert_user_route(req, res): Promise<void> {
+    // let contentData: String = [];
 
-    req.on("data", chunk => {
-        contentData.push(chunk);
-    });
+    // req.on("data", chunk => {
+    //     contentData.push(chunk);
+    // });
+
+    console.log(req.body)
 
     req.on("end", async () => {
-        let user = JSON.parse(contentData);
+        let user = JSON.parse("");
 
         try {
             let result = await upsertUser(user);

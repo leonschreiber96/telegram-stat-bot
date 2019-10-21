@@ -17,7 +17,7 @@ import get_user_route from "./users/getUser.route";
 import get_personal_data_route from "./users/getPersonalData.route";
 import upsert_user_route from "./users/upsertUserRoute";
 
-const router = express.Router();
+const router: express.Router = express.Router();
 
 // Configure message routes
 router.get("/messages/total/:chatId", get_message_total_route);
