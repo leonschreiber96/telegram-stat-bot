@@ -24,20 +24,21 @@ export async function get_personal_data(id) {
     };
 }
 
-export function upsertUser(user) {
-    return new Promise((resolve, reject) => {
-        if (user.data_collection_consent && !["full", "restricted", "deny"].includes(user.data_collection_consent)) {
-            reject({
-                status: 422,
-                message: "If the data_collection_consent property is set, it must be one of ['full', 'restricted', 'deny']"
+export async function upsertUser(user) {
+    if (user.data_collection_consent && !["full", "restricted", "deny"].includes(user.data_collection_consent)) {
+        throw new Error({
+            status: 422,
+            message: "If the data_collection_consent property is set, it must be one of ['full', 'restricted', 'deny']"
+        });
+    } else {
+        try {
+            let result = await StatBotUser.findOneAndUpdate({ "id": user.id }, user, { upsert: true });
+            return result;
+        } catch (error) {
+            throw new Error({
+                status: 500,
+                message: error
             });
-        } else {
-            StatBotUser.findOneAndUpdate({ "id": user.id }, user, { upsert: true })
-                .then(result => resolve(result))
-                .catch(err => reject({
-                    status: 500,
-                    message: err
-                }));
         }
-    });
+    }
 }
