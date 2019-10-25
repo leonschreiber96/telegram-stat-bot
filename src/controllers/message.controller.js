@@ -36,17 +36,35 @@ export async function get_messages_by_weekday(chat_id) {
 
         for (let i = 0; i < messagesByWeekday.length; i++) {
             messagesByWeekday[i].percentage = +((messagesByWeekday[i].count / total_messages) * 100).toFixed(2);
+            // messagesByWeekday[i]._id.weekday -= 1;
         }
 
-        return messagesByWeekday.map(x => {
-            return {
-                weekday: {
-                    numeric: x._id.weekday - 1,
-                    readable: get_raw_translation("weekdays", config.language_default)[x._id.weekday - 1]
-                },
-                count: x.count
-            };
-        });
+        let result = [];
+
+        for (let i = 0; i < 7; i++) {
+            if (messagesByWeekday.some(x => x._id.weekday - 1 === i)) {
+                let x = messagesByWeekday.filter(y => y._id.weekday - 1 === i)[0];
+                result.push({
+                    weekday: {
+                        numeric: x._id.weekday - 1,
+                        readable: get_raw_translation("weekdays", config.language_default)[x._id.weekday - 1]
+                    },
+                    count: x.count,
+                    percentage: x.percentage
+                });
+            } else {
+                result.push({
+                    weekday: {
+                        numeric: i,
+                        readable: get_raw_translation("weekdays", config.language_default)[i]
+                    },
+                    count: 0,
+                    percentage: 0
+                });
+            }
+        }
+
+        return result;
     } catch (error) {
         throw new Error(error);
     }
@@ -95,8 +113,9 @@ export async function post_message(message, metadata) {
         if (config.whitelist && !config.whitelist.includes(message.chat.id)) save = false;
 
         if (save) {
-            let consent = await consent_level(message.from).data_collection_consent;
+            let consent = await consent_level(message.from);
 
+            console.log(consent);
             if (consent !== "deny") {
                 await upsert_missing_documents(message);
                 let preparedMessage = prepareMessageForDb(message, consent_level);

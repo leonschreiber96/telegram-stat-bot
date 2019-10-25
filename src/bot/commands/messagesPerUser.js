@@ -29,13 +29,28 @@ function reply(stat_bot, message, messages_per_user) {
     let reply = new TextMessage(bot, chat, "de", "Markdown");
 
     let chart_data = {
-        type: "bar",
+        type: "outlabeledPie",
         data: {
-            labels: [...messages_per_user.map(x => stat_bot.get_user_address(x._id))],
+            labels: [...messages_per_user.map(x => stat_bot.get_user_address(x.user))],
             datasets: [{
                 label: "total message percentage",
-                data: messages_per_user.map(x => x.count)
+                data: messages_per_user.map(x => x.percentage)
             }]
+        },
+        options: {
+            plugins: {
+                legend: false,
+                outlabels: {
+                    text: "%l %p",
+                    color: "white",
+                    stretch: 35,
+                    font: {
+                        resizable: true,
+                        minSize: 12,
+                        maxSize: 18
+                    }
+                }
+            }
         }
     };
 
@@ -44,7 +59,7 @@ function reply(stat_bot, message, messages_per_user) {
     reply.add_chart(chart_data);
 
     messages_per_user.forEach((x) => {
-        reply.add_line(`${messages_per_user.indexOf(x) + 1}. ${stat_bot.get_user_address(x._id)}: \`${x.count}\` messages (\`${x.percentage}%\`)`);
+        reply.add_line(`${messages_per_user.indexOf(x) + 1}. ${stat_bot.get_user_address(x.user)}: \`${x.count}\` messages (\`${x.percentage}%\`)`);
     });
 
     reply.send();

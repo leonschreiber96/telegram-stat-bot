@@ -38,15 +38,31 @@ function reply(stat_bot, message, messages_per_weekday) {
     let reply = new TextMessage(bot, chat, "de", "Markdown");
 
     let chart_data = {
-        type: "bar",
+        type: "outlabeledPie",
         data: {
-            labels: [...messages_per_weekday.map(x => x.weekday.readable)],
+            labels: [...messages_per_weekday.filter(x => x.count > 0).map(x => x.weekday.readable)],
             datasets: [{
                 label: "total message percentage",
-                data: messages_per_weekday.map(x => x.count)
+                data: messages_per_weekday.filter(x => x.count > 0).map(x => x.percentage)
             }]
+        },
+        options: {
+            plugins: {
+                legend: false,
+                outlabels: {
+                    text: "%l %p",
+                    color: "white",
+                    stretch: 35,
+                    font: {
+                        resizable: true,
+                        minSize: 12,
+                        maxSize: 18
+                    }
+                }
+            }
         }
     };
+
 
     reply.add_line_translated("messages_per_weekday");
 

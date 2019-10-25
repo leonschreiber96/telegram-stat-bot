@@ -20,7 +20,7 @@ export default class TextMessage {
     }
 
     add_chart(chart_data) {
-        let url = `https://quickchart.io/chart?width=500&height=300&c=${JSON.stringify(chart_data).replace(/"/g, "'")}`;
+        let url = `https://quickchart.io/chart?bkg=black&width=500&height=300&c=${encodeURIComponent(JSON.stringify(chart_data).replace(/"/g, "'"))}`;
         this.add_link(url, "‎");
     }
 
