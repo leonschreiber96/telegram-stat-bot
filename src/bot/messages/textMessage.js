@@ -20,8 +20,8 @@ export default class TextMessage {
     }
 
     addChart(chart_data) {
-        let url = `https://quickchart.io/chart?width=500&height=300&c=${JSON.stringify(chart_data).replace(/"/g, "'")}`;
-        this.addLink(url, "‎");
+        let url = `https://quickchart.io/chart?bkg=black&width=500&height=300&c=${encodeURIComponent(JSON.stringify(chart_data).replace(/"/g, "'"))}`;
+        this.add_link(url, "‎");
     }
 
     addLineTranslated(key, params) {
@@ -29,14 +29,18 @@ export default class TextMessage {
     }
 
     send() {
-        let text = this.lines.join("\n");
-        let options = {
-            disable_notification: true
-        };
+        try {
+            let text = this.lines.join("\n");
+            let options = {
+                disable_notification: true
+            };
 
-        if (this.parse_mode) options.parse_mode = this.parse_mode;
-        if (this.reply_to_message_id) options.reply_to_message_id = this.reply_to_message_id;
+            if (this.parse_mode) options.parse_mode = this.parse_mode;
+            if (this.reply_to_message_id) options.reply_to_message_id = this.reply_to_message_id;
 
-        this.bot.sendMessage(this.chat, text, options);
+            this.bot.sendMessage(this.chat, text, options);
+        } catch (error) {
+            console.log("leon");
+        }
     }
 }

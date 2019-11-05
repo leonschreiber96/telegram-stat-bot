@@ -4,8 +4,9 @@ export default async function messages_by_user(chat_id) {
     let query = [{ $match: { "chat.id": chat_id } },
         {
             $group: {
-                "_id": "$from",
-                "count": { $sum: 1 }
+                "_id": "$from.id",
+                "count": { $sum: 1 },
+                "user": { $first: "$from" }
             }
         },
         {

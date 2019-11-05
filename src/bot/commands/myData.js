@@ -32,7 +32,7 @@ export default async function total_messages(message, stat_bot) {
             chat_count: chat_count || " ",
             first_name: user_data.first_name || " ",
             last_name: user_data.last_name || " ",
-            username: user_data.username || " ", 
+            username: user_data.username || " ",
             telegram_id: user_data.id || " ",
             consent_level: user_data.data_collection_consent || " ",
             language_code: user_data.language_code || " "

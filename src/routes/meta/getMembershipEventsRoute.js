@@ -8,7 +8,7 @@ export default async function get_membership_events_route(req, res) {
     }
 
     try {
-        let result = await get_membership_events(chat_id)
+        let result = await get_membership_events(chat_id);
 
         res.status(200).json({
             result: result
