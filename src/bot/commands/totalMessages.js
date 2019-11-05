@@ -21,7 +21,7 @@ export default async function total_messages(message, stat_bot) {
 
         let reply = new TextMessage(stat_bot.bot, chat, "de", "Markdown");
 
-        reply.add_line_translated("total_messages", { total_messages: total_messages });
+        reply.addLineTranslated("total_messages", { total_messages: total_messages });
 
         reply.send();
 

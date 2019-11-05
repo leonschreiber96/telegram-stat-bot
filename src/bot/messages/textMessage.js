@@ -10,21 +10,21 @@ export default class TextMessage {
         this.lines = [];
     }
 
-    add_line(text) {
+    addLine(text) {
         this.lines.push(text);
     }
 
-    add_link(url, display_text) {
+    addLink(url, display_text) {
         let text = display_text ? `[${display_text}](${url})` : url;
         this.lines.push(text);
     }
 
-    add_chart(chart_data) {
+    addChart(chart_data) {
         let url = `https://quickchart.io/chart?width=500&height=300&c=${JSON.stringify(chart_data).replace(/"/g, "'")}`;
-        this.add_link(url, "‎");
+        this.addLink(url, "‎");
     }
 
-    add_line_translated(key, params) {
+    addLineTranslated(key, params) {
         this.lines.push(getBotReplyTranslation(key, this.language, params));
     }
 

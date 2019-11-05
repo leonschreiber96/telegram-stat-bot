@@ -24,10 +24,10 @@ export default async function total_messages_extended(message, stat_bot) {
         stat_bot.log(log);
 
         let reply = new TextMessage(stat_bot.bot, chat, "de", "Markdown");
-        reply.add_line_translated("total_messages_extended", { total_messages: total_messages });
+        reply.addLineTranslated("total_messages_extended", { total_messages: total_messages });
 
         total_messages_grouped.forEach((x) => {
-            reply.add_line(`\`${(" ".repeat(max_digits) + x.count).slice(-max_digits)} \`` +
+            reply.addLine(`\`${(" ".repeat(max_digits) + x.count).slice(-max_digits)} \`` +
                 `${getMessageTypeTranslation(x.type, "de", x.count > 1)}`);
         });
 

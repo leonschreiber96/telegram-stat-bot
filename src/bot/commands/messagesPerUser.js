@@ -39,12 +39,12 @@ function reply(stat_bot, message, messages_per_user) {
         }
     };
 
-    reply.add_line_translated("messages_per_user");
+    reply.addLineTranslated("messages_per_user");
 
-    reply.add_chart(chart_data);
+    reply.addChart(chart_data);
 
     messages_per_user.forEach((x) => {
-        reply.add_line(`${messages_per_user.indexOf(x) + 1}. ${stat_bot.get_user_address(x._id)}: \`${x.count}\` messages (\`${x.percentage}%\`)`);
+        reply.addLine(`${messages_per_user.indexOf(x) + 1}. ${stat_bot.get_user_address(x._id)}: \`${x.count}\` messages (\`${x.percentage}%\`)`);
     });
 
     reply.send();

@@ -12,14 +12,14 @@ export default async function chat_info(message, stat_bot) {
         let reply = new TextMessage(stat_bot.bot, message.chat.id, "de", "Markdown");
 
         if (message.chat.type === "private") {
-            reply.add_line_translated("private_chat_data", {
+            reply.addLineTranslated("private_chat_data", {
                 id: message.chat.id || " ",
                 first_name: message.chat.first_name || " ",
                 last_name: message.chat.last_name || " ",
                 username: message.chat.username || " ",
             });
         } else {
-            reply.add_line_translated("group_chat_data", {
+            reply.addLineTranslated("group_chat_data", {
                 id: message.chat.id || " ",
                 title: message.chat.title || " ",
                 all_members_are_administrators: message.chat.all_members_are_administrators || " "

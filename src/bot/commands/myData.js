@@ -21,11 +21,11 @@ export default async function total_messages(message, stat_bot) {
         let chat_count = response.result.chat_count;
 
         let group_reply = new TextMessage(stat_bot.bot, message.chat.id, "de", "Markdown", message.id);
-        group_reply.add_line_translated("personal_data_group");
+        group_reply.addLineTranslated("personal_data_group");
         group_reply.send();
 
         let private_reply = new TextMessage(stat_bot.bot, message.from.id, "de", "Markdown");
-        private_reply.add_line_translated("personal_data_private", {
+        private_reply.addLineTranslated("personal_data_private", {
             user_address: stat_bot.get_user_address(user_data),
             group_name: message.chat.title,
             message_count: message_count || " ",
