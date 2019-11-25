@@ -63,13 +63,12 @@ function reply(stat_bot, message, messages_per_weekday) {
         }
     };
 
+    reply.addLineTranslated("messages_per_weekday");
 
-    reply.add_line_translated("messages_per_weekday");
-
-    reply.add_chart(chart_data);
+    reply.addChart(chart_data);
 
     messages_per_weekday.forEach((x) => {
-        reply.add_line(`${x.weekday.readable}: \`${x.count}\` messages (\`${x.percentage}%\`)`);
+        reply.addLine(`${x.weekday.readable}: \`${x.count}\` messages (\`${x.percentage}%\`)`);
     });
 
     reply.send();

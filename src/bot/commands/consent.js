@@ -21,7 +21,7 @@ export default async function consent(message, consent_level, stat_bot) {
 
         let reply = new TextMessage(stat_bot.bot, chat, "de", "Markdown");
 
-        reply.add_line_translated("confirm_consent_update", {
+        reply.addLineTranslated("confirm_consent_update", {
             user_name: stat_bot.get_user_address(message.from),
             previous_value: response.result.data_collection_consent,
             new_value: consent_level
@@ -34,7 +34,7 @@ export default async function consent(message, consent_level, stat_bot) {
         if (error.statusCode === 422) {
             let reply = new TextMessage(stat_bot.bot, chat, "de", "Markdown");
 
-            reply.add_line_translated("invalid_consent_update");
+            reply.addLineTranslated("invalid_consent_update");
 
             reply.send();
         }

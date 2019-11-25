@@ -22,10 +22,10 @@ function self_enter_chat(message, stat_bot) {
     let gif = new DocumentMessage(bot, chat, "CgADBAADfQEAAprc5VLEBzPUauGO4hYE");
 
     let introduction = new TextMessage(bot, chat, config.language_default, "Markdown");
-    introduction.add_line_translated("introduction_group", { group_name: message.chat.title });
+    introduction.addLineTranslated("introduction_group", { group_name: message.chat.title });
 
     let ask_for_consent = new TextMessage(bot, chat, config.language_default);
-    ask_for_consent.add_line_translated("ask_for_consent_multiple_members");
+    ask_for_consent.addLineTranslated("ask_for_consent_multiple_members");
 
     let replies = new MessageCollection([
         gif,
@@ -33,7 +33,7 @@ function self_enter_chat(message, stat_bot) {
         ask_for_consent
     ]);
 
-    replies.send_all();
+    replies.sendAll();
 }
 
 async function user_enter_chat(message, stat_bot) {
@@ -58,23 +58,23 @@ async function user_enter_chat(message, stat_bot) {
 
     if (human_new_members.every(x => x.user_already_in_db)) {
         if (human_new_members.length > 1) {
-            introduction.add_line_translated("introduction_known_members", { new_members: human_new_members.map(x => stat_bot.get_user_address(x)).join(", ") });
+            introduction.addLineTranslated("introduction_known_members", { new_members: human_new_members.map(x => stat_bot.get_user_address(x)).join(", ") });
         } else {
-            introduction.add_line_translated("introduction_known_member", { new_members: human_new_members.map(x => stat_bot.get_user_address(x)).join(", ") });
+            introduction.addLineTranslated("introduction_known_member", { new_members: human_new_members.map(x => stat_bot.get_user_address(x)).join(", ") });
         }
     } else if (human_new_members.some(x => x.user_already_in_db)) {
-        introduction.add_line_translated("introduction_some_known_members", { new_members: human_new_members.map(x => stat_bot.get_user_address(x)).join(", ") });
+        introduction.addLineTranslated("introduction_some_known_members", { new_members: human_new_members.map(x => stat_bot.get_user_address(x)).join(", ") });
     } else {
-        introduction.add_line_translated("introduction_unknown_members", { new_members: human_new_members.map(x => stat_bot.get_user_address(x)).join(", ") });
+        introduction.addLineTranslated("introduction_unknown_members", { new_members: human_new_members.map(x => stat_bot.get_user_address(x)).join(", ") });
     }
 
     let ask_for_consent = new TextMessage(bot, chat, config.language_default, "Markdown");
-    ask_for_consent.add_line_translated(human_new_members.length > 1 ? "ask_for_consent_multiple_members" : "ask_for_consent_single_member");
+    ask_for_consent.addLineTranslated(human_new_members.length > 1 ? "ask_for_consent_multiple_members" : "ask_for_consent_single_member");
 
     let replies = new MessageCollection([
         introduction,
         ask_for_consent
     ]);
 
-    replies.send_all();
+    replies.sendAll();
 }

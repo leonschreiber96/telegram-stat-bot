@@ -20,7 +20,7 @@ export default async function word_count(message, stat_bot) {
 
     let reply = new TextMessage(stat_bot.bot, chat, "de", "Markdown");
 
-    reply.add_line_translated("word_count", {
+    reply.addLineTranslated("word_count", {
         total_words: result.total,
         avgPerMessage: result.avgPerMessage
     });

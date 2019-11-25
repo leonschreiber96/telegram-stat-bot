@@ -3,11 +3,11 @@ export default class MessageCollection {
         this.messages = messages || [];
     }
 
-    add_message(message) {
+    addMessage(message) {
         this.messages.push(message);
     }
 
-    send_all() {
+    sendAll() {
         this.messages.forEach((message, index) => {
             setTimeout(() => message.send(), 1000 * index);
         });
