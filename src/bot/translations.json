@@ -5,7 +5,7 @@
                 "Seit ich hier bin wurden insgesamt `p[total_messages]` Nachrichten geschrieben."
             ],
             "en": [
-                "Since I'm here, `p[total_messages] messages have been sent in total.`"
+                "Since I'm here, `p[total_messages]` messages have been sent in total."
             ]
         },
         "total_messages_extended": {
@@ -13,7 +13,7 @@
                 "Seit ich hier bin wurden insgesamt `p[total_messages]` Nachrichten geschrieben. Darunter waren"
             ],
             "en": [
-                "Since I'm here, `p[total_messages] messages have been sent in total. These include`"
+                "Since I'm here, `p[total_messages]` messages have been sent in total. These include"
             ]
         },
         "messages_per_user": {
