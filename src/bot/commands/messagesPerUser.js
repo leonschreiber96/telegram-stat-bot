@@ -59,7 +59,7 @@ function reply(stat_bot, message, messages_per_user) {
     reply.addChart(chart_data);
 
     messages_per_user.forEach((x) => {
-        reply.addLine(`${messages_per_user.indexOf(x) + 1}. ${stat_bot.get_user_address(x._id)}: \`${x.count}\` messages (\`${x.percentage}%\`)`);
+        reply.addLine(`${messages_per_user.indexOf(x) + 1}. ${stat_bot.get_user_address(x.user)}: \`${x.count}\` messages (\`${x.percentage}%\`)`);
     });
 
     reply.send();

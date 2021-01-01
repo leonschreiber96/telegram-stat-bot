@@ -35,15 +35,15 @@ export default async function messages_per_user(message, stat_bot) {
 function reply(stat_bot, message, messages_per_weekday) {
     let chat = message.chat.id;
     let bot = stat_bot.bot;
-    let reply = new TextMessage(bot, chat, "de", "Markdown");
+    let reply = new TextMessage(bot, chat, "de", "Markdown"); // TODO: Set reply language according to chat language
 
     let chart_data = {
-        type: `${(messages_per_weekday.filter(x => x.count > 0).length === 7 ? "line":"bar")}`,
+        type: `${(messages_per_weekday.filter(x => x.count > 0).length === 7 ? "line" : "bar")}`,
         data: {
             labels: [...messages_per_weekday.map(x => x.weekday.readable)],
             datasets: [{
                 label: "total message percentage",
-                data: messages_per_weekday.map(x => x.percentage)
+                data: messages_per_weekday.map(x => x.count)
             }]
         },
         options: {

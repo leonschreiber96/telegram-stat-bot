@@ -21,7 +21,7 @@ export default class TextMessage {
 
     addChart(chart_data) {
         let url = `https://quickchart.io/chart?bkg=black&width=500&height=300&c=${encodeURIComponent(JSON.stringify(chart_data).replace(/"/g, "'"))}`;
-        this.add_link(url, "‎");
+        this.addLink(url, "‎");
     }
 
     addLineTranslated(key, params) {

@@ -55,8 +55,10 @@ export default class StatBot {
     get_user_address(user) {
         if (user.first_name) {
             return `${user.first_name} ${user.last_name || ""}`.trim();
-        } else {
+        } else if (user.username) {
             return `@${user.username.trim()}`;
+        } else {
+            return "";
         }
     }
 

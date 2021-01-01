@@ -11,8 +11,9 @@ export async function get_user(id) {
 
 export async function get_personal_data(id) {
     let user = (await StatBotUser.find({ "id": id }))[0];
+
     let messages_per_chat = await Message.aggregate([{
-        $match: { "from.id": 37147413 }
+        $match: { "from.id": id }
     }, {
         $group: { _id: "$chat.id", count: { $sum: 1 } }
     }]);

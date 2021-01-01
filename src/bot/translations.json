@@ -49,6 +49,11 @@
                 "Hallo, p[new_members]! 😊",
                 "Ein herzliches Willkommen in der Gruppe von mir. Ich bin Bob der Statistiker 👋",
                 "Ich sammle hier Nachrichten und erstelle interessante Statistiken und Grafiken für euch daraus."
+            ],
+            "en": [
+                "Hello, p[new_members]! 😊",
+                "Warm welcome to the group from me. I'm Bob the statistician 👋",
+                "I collect messages and create interesting graphs and statistics for you."
             ]
         },
         "introduction_some_known_members": {
@@ -57,6 +62,12 @@
                 "Ein herzliches Willkommen in der Gruppe von mir. Einige von euch kennen mich ja schon! Freut mich, euch hier wiederzusehen 👋",
                 "Für die unbekannten Gesichter: Ich bin Bob der Statistiker.",
                 "Ich sammle Nachrichten und erstelle interessante Statistiken und Grafiken für euch daraus."
+            ],
+            "en": [
+                "Hello, p[new_members]! 😊",
+                "Warm welcome to the group from me. I see some of you aready know me! Glad to meet you again 👋",
+                "To all the unknown faces: I'm Bob the statistician.",
+                "I collect messages and create interesting graphs and statistics for you."
             ]
         },
         "introduction_known_members": {
@@ -64,6 +75,11 @@
                 "Hallo, p[new_members]! 😊",
                 "Ein herzliches Willkommen in der Gruppe von mir. Ich hab euch ja alle schon mal getroffen! Freut mich, euch hier wiederzusehen 👋",
                 "Ihr kennt ja das Procedere: Ich sammle Nachrichten und erstelle interessante Statistiken und Grafiken für euch daraus."
+            ],
+            "en": [
+                "Hello, p[new_members]! 😊",
+                "Warm welcome to the group from me. I believe I already met all of you before! Glad to meet you again 👋",
+                "You know the drill: I collect messages and create interesting graphs and statistics for you."
             ]
         },
         "introduction_known_member": {
@@ -71,6 +87,11 @@
                 "Hallo, p[new_members]! 😊",
                 "Ein herzliches Willkommen in der Gruppe von mir. Wir haben uns ja schon mal gesehen. Freut mich, dich hier wieder zu treffen 👋",
                 "Du kennst ja das Procedere: Ich sammle Nachrichten und erstelle interessante Statistiken und Grafiken für euch daraus."
+            ],
+            "en": [
+                "Hello, p[new_members]! 😊",
+                "Warm welcome to the group from me. I believe we've met before. Glad to meet you again 👋",
+                "You know the drill: I collect messages and create interesting graphs and statistics for you."
             ]
         },
         "ask_for_consent_multiple_members": {
@@ -81,6 +102,14 @@
                 "Wenn ihr damit einverstanden seid, dass die Anzahl und das Datum eurer Nachrichten gespeichert werden, der Inhalt aber nicht, dann sendet einfach `/consent_restricted` in den Chat und ich weiß auch darüber Bescheid.",
                 "",
                 "Wenn ihr komplett unsichtbar bleiben wollt, schreibt einfach nichts davon und ich werde eure Nachrichten ungelesen verwerfen. Versprochen! Seid euch jedoch bewusst, dass in diesem Fall die Statistiken für die gesamte Gruppe verfälscht werden könnten (z.B. Gesamtzahl der Nachrichten, oder Anteile der einzelnen Nutzer daran)."
+            ],
+            "en": [
+                "Of course I won't just collect your personal data without permission - I need your consent first 😇.",
+                "If you're okay with me saving your messages (including content), just use the `/consent_full` command, so that I can get to work!",
+                "",
+                "If you only want me to save the timestamp and total count of your messages, but not the content, then use the `/consent_restricted` instead so I know what to do.",
+                "",
+                "If you want to remain completely invisible to me, don't do anything and I will discard all messages from you. Promise! I can't guarantee that the group statistics might not be a bit skewed then (e.g. the total message count or message quotas per user)."
             ]
         },
         "ask_for_consent_single_member": {
@@ -91,11 +120,22 @@
                 "Wenn du damit einverstanden bist, dass die Anzahl und das Datum deiner Nachrichten gespeichert werden, der Inhalt aber nicht, dann sende einfach `/consent_restricted` in den Chat und ich weiß auch darüber Bescheid.",
                 "",
                 "Wenn du komplett unsichtbar bleiben willst, schreib einfach nichts davon und ich werde deine Nachrichten ungelesen verwerfen. Versprochen! Sei dir jedoch bewusst, dass in diesem Fall die Statistiken für die gesamte Gruppe verfälscht werden könnten (z.B. Gesamtzahl der Nachrichten, oder Anteile der einzelnen Nutzer daran)."
+            ],
+            "en": [
+                "Of course I won't just collect your personal data without permission - I need your consent first 😇.",
+                "If you're okay with me saving your messages (including content), just use the `/consent_full` command, so that I can get to work!",
+                "",
+                "If you only want me to save the timestamp and total count of your messages, but not the content, then use the `/consent_restricted` instead so I know what to do.",
+                "",
+                "If you want to remain completely invisible to me, don't do anything and I will discard all messages from you. Promise! I cant't guarantee that the group statistics might not be a bit skewed then (e.g. the total message count or message quotas per user)."
             ]
         },
         "confirm_consent_update": {
             "de": [
                 "Alles klar, p[user_name]. Ich habe deine Einstellungen zum Daten sammeln von `p[previous_value]` auf `p[new_value]` geändert."
+            ],
+            "en": [
+                "Alright, p[user_name]. I changed your consent level from `p[previous_value]` to `p[new_value]`."
             ]
         },
         "invalid_consent_update": {
@@ -104,11 +144,20 @@
                 "· `full`",
                 "· `restricted`",
                 "· `deny`"
+            ],
+            "en": [
+                "I'm afraid that's not a valid option. You can use",
+                "· `full`",
+                "· `restricted`",
+                "· `deny`"
             ]
         },
         "personal_data_group": {
             "de": [
                 "Alles klar. Ich habe dir eine private Nachricht geschickt."
+            ],
+            "en": [
+                "Alright. I sent you a private message."
             ]
         },
         "personal_data_private": {
@@ -123,6 +172,18 @@
                 "· Telegram ID: `p[telegram_id]`",
                 "· Datensammelerlaubnis: `p[consent_level]`",
                 "· Sprache: `p[language_code]`"
+            ],
+            "en": [
+                "Hey, *p[user_address]*!",
+                "You asked for an overview of your personal data in *p[group_name]*. Here's what I got about you:",
+                "",
+                "· `p[message_count]` messages from `p[chat_count]` chats.",
+                "· First name: `p[first_name]`",
+                "· Last name: `p[last_name]`",
+                "· Username: `p[username]`",
+                "· Telegram ID: `p[telegram_id]`",
+                "· Data collection permissions: `p[consent_level]`",
+                "· Language: `p[language_code]`"
             ]
         },
         "group_chat_data": {
@@ -131,6 +192,12 @@
                 "· ID: `p[id]`",
                 "· Name: `p[title]`",
                 "· Alle Mitglieder sind Admins: `p[all_members_are_administrators]`"
+            ],
+            "en": [
+                "This is a group chat.",
+                "· ID: `p[id]`",
+                "· Name: `p[title]`",
+                "· All members are admins: `p[all_members_are_administrators]`"
             ]
         },
         "private_chat_data": {
@@ -140,11 +207,21 @@
                 "· Vorname: `p[first_name]`",
                 "· Nachname: `p[last_name]`",
                 "· Nutzername: `p[username]`"
+            ],
+            "en": [
+                "This is a private chat",
+                "· ID: `p[id]`",
+                "· First name: `p[first_name]`",
+                "· Last name: `p[last_name]`",
+                "· Username: `p[username]`"
             ]
         },
         "word_count": {
             "de": [
                 "Insgesamt wurde in diesem chat schon `p[total_words]` Worte geschrieben. Das sind durchschnittlich `p[avgPerMessage]` pro Nachricht."
+            ],
+            "en": [
+                "A total of `p[total_words]` words have been sent in this chat so far. That's an average of `p[avgPerMessage]` per message."
             ]
         },
         "weekdays": {
