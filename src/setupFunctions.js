@@ -29,7 +29,7 @@ export async function setup_database() {
             }
         });
 
-        db.once("open", function() {
+        db.once("open", function () {
             console.log(`${colors.green("✔")} connected to database`);
             resolve({ success: true });
         });

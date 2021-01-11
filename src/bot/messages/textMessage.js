@@ -40,7 +40,7 @@ export default class TextMessage {
 
             this.bot.sendMessage(this.chat, text, options);
         } catch (error) {
-            console.log("leon");
+            console.log(error);
         }
     }
 }

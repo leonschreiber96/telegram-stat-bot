@@ -22,5 +22,7 @@ export default class DocumentMessage {
         if (this.parse_mode) options.parse_mode = this.parse_mode;
 
         this.bot.sendDocument(this.chat, this.document, options);
+
+        console.log("Sent message to " + this.chat.id)
     }
 }
